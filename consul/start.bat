@@ -1,0 +1,1 @@
+start consul.exe agent -dev

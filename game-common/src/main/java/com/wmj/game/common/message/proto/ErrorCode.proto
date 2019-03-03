@@ -1,0 +1,7 @@
+syntax = "proto3";
+option java_package = "com.wmj.game.common.message.proto";
+option java_outer_classname = "ErrorCode";
+
+enum ErrorCode {
+    Success = 0;
+}
