@@ -1,0 +1,13 @@
+syntax = "proto3";
+option java_package = "com.wmj.game.common.message.code";
+option java_outer_classname = "GatewayMessage";
+import "Mid.proto";
+
+message ping {
+    MID mid = 1;
+}
+
+message pong {
+    MID mid = 1;
+    int64 systemTime = 2;
+}

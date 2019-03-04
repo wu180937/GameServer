@@ -1,0 +1,4 @@
+syntax = "proto3";
+option java_package = "com.wmj.game.common.message.code";
+option java_outer_classname = "SystemMessage";
+import "Mid.proto";

@@ -1,0 +1,25 @@
+syntax = "proto3";
+option java_package = "com.wmj.game.common.message.code";
+option java_outer_classname = "Mid";
+//1-5000 		        内部消息
+//5001-10000            网关消息
+//10001-10002           大厅消息
+//20001-99999           游戏消息
+enum MID {
+    Unknow = 0;
+    //内部
+    ChangeRoleServerReq = 1005; //改变角色服务器
+    ChangeRoleServerRes = 1006; //改变角色服务器
+
+    //网关
+    Ping = 5001; //ping
+    Pong = 5002; //ping返回
+
+    //大厅
+    LoginReq = 10001; //登录
+    LoginRes = 10002; //登录
+    QuitReq = 10007; //退出游戏
+    QuitRes = 10008; //退出游戏
+
+    //游戏
+}
