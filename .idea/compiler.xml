@@ -6,6 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="game-api" />
+        <module name="game-common" />
+        <module name="game-engine" />
+        <module name="game-gateway" />
+        <module name="game-hall" />
         <module name="gameapi" />
         <module name="gamecommon" />
         <module name="gameengine" />
@@ -13,5 +18,14 @@
         <module name="gamehall" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="game-api" options="-parameters" />
+      <module name="game-common" options="-parameters" />
+      <module name="game-engine" options="-parameters" />
+      <module name="game-gateway" options="-parameters" />
+      <module name="game-hall" options="-parameters" />
+    </option>
   </component>
 </project>
