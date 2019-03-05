@@ -8,6 +8,6 @@ package com.wmj.game.common.service;
 public interface ServiceType {
     String Tcp = "tcp";
     String Udp = "udp";
-    String WebSocket = "webSocket";
+    String WebSocket = "websocket";
     String Rpc = "rpc";
 }
