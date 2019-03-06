@@ -6,9 +6,13 @@ import com.orbitz.consul.Consul;
 import com.orbitz.consul.NotRegisteredException;
 import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.agent.Registration;
+import com.wmj.game.common.rpc.RpcServiceName;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.service.ServiceType;
 import com.wmj.game.engine.webSocket.WebSocketServerInitializer;
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import io.grpc.ServerServiceDefinition;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -25,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLException;
+import java.io.IOException;
 import java.security.cert.CertificateException;
 import java.util.Collections;
 import java.util.concurrent.ExecutorService;
@@ -49,12 +54,27 @@ public class GameServer {
         return serviceName;
     }
 
-    public void startWebSocket(int port, boolean ssl) {
+    public void startWebSocketServer(int port, boolean ssl) {
         new Thread(new WebSocketServer(port, ssl)).start();
     }
 
+    public void startRpcServer(int port) {
+        ServerServiceDefinition.Builder builder = ServerServiceDefinition.builder(RpcServiceName.GAME_RPC_SERVICE_NAME);
+        final Server server = ServerBuilder.forPort(port).addService(builder.build()).build();
+        try {
+
+            server.start();
+            log.info("rpc service started bind port : " + port);
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                server.shutdown();
+            }));
+        } catch (IOException e) {
+            log.error("出错了", e);
+        }
+    }
+
     private String generateServiceName(String serviceType) {
-        return "<" + serviceType + ">" + this.serviceName.getName();
+        return serviceType + ":" + this.serviceName.getName();
     }
 
     private Consul register2Consul(String serviceName, int servicePort) {

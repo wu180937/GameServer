@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--控制台日志输出配置-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %p (%file:%line\)- %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <!--指定日志输出等级-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
