@@ -1,6 +1,4 @@
 syntax = "proto3";
-option java_package = "com.wmj.game.common.message.code";
-option java_outer_classname = "Mid";
 //1-5000 		        内部消息
 //5001-10000            网关消息
 //10001-10002           大厅消息

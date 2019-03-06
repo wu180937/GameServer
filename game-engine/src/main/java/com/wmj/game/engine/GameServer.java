@@ -9,6 +9,7 @@ import com.orbitz.consul.model.agent.Registration;
 import com.wmj.game.common.rpc.RpcServiceName;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.service.ServiceType;
+import com.wmj.game.engine.webSocket.WebSocketServer;
 import com.wmj.game.engine.webSocket.WebSocketServerInitializer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -55,22 +56,13 @@ public class GameServer {
     }
 
     public void startWebSocketServer(int port, boolean ssl) {
-        new Thread(new WebSocketServer(port, ssl)).start();
+        new Thread(new WebSocketServer(serviceName.getName(), port, ssl)).start();
+        register2Consul(generateServiceName(ServiceType.WebSocket), port);
     }
 
     public void startRpcServer(int port) {
-        ServerServiceDefinition.Builder builder = ServerServiceDefinition.builder(RpcServiceName.GAME_RPC_SERVICE_NAME);
-        final Server server = ServerBuilder.forPort(port).addService(builder.build()).build();
-        try {
 
-            server.start();
-            log.info("rpc service started bind port : " + port);
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                server.shutdown();
-            }));
-        } catch (IOException e) {
-            log.error("出错了", e);
-        }
+        register2Consul(generateServiceName(ServiceType.Rpc), port);
     }
 
     private String generateServiceName(String serviceType) {
@@ -102,47 +94,6 @@ public class GameServer {
 
     public static GameServer.Builder builder() {
         return new GameServer.Builder();
-    }
-
-    private class WebSocketServer implements Runnable {
-        private int port;
-        private boolean ssl;
-
-        public WebSocketServer(int port, boolean ssl) {
-            this.port = port;
-            this.ssl = ssl;
-        }
-
-        @Override
-        public void run() {
-            EventLoopGroup bossGroup = new NioEventLoopGroup();
-            EventLoopGroup workerGroup = new NioEventLoopGroup();
-            try {
-                final SslContext sslCtx;
-                if (ssl) {
-                    SelfSignedCertificate ssc = new SelfSignedCertificate();
-                    sslCtx = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
-                } else {
-                    sslCtx = null;
-                }
-                ServerBootstrap b = new ServerBootstrap();
-                b.group(bossGroup, workerGroup)
-                        .channel(NioServerSocketChannel.class)
-                        .handler(new LoggingHandler(LogLevel.INFO))
-                        .childHandler(new WebSocketServerInitializer(sslCtx))
-                        .option(ChannelOption.SO_BACKLOG, 128)
-                        .childOption(ChannelOption.SO_KEEPALIVE, true);
-                ChannelFuture f = b.bind(port).sync();
-                register2Consul(generateServiceName(ServiceType.WebSocket), port);
-                log.info("webSocket service started bind port : " + port);
-                f.channel().closeFuture().sync();
-            } catch (InterruptedException | CertificateException | SSLException e) {
-                log.error(String.format("server[%s] error", serviceName.getName()), e);
-            } finally {
-                workerGroup.shutdownGracefully();
-                bossGroup.shutdownGracefully();
-            }
-        }
     }
 
     public static class Builder {
