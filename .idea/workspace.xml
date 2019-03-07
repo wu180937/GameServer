@@ -2,64 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d34041de-4a0a-44b0-b882-0f4f7493f588" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/game-gateway/src/main/java/com/wmj/game/gateway/GatewayBootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/annotations.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/auth.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/backend.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/billing.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/config_change.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/consumer.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/context.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/control.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/distribution.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/documentation.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/endpoint.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/experimental/authorization_config.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/experimental/experimental.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/http.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/httpbody.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/label.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/log.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/logging.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/metric.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/monitored_resource.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/monitoring.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/quota.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/service.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/source_info.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/system_parameter.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/api/usage.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/cloud/audit/audit_log.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/logging/type/http_request.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/logging/type/log_severity.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/longrunning/operations.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/rpc/code.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/rpc/error_details.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/rpc/status.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/color.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/date.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/dayofweek.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/latlng.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/money.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/postal_address.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/4239a0737a906e52e0ce2c0e826f7f6c/google/type/timeofday.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/any.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/api.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/compiler/plugin.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/descriptor.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/duration.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/empty.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/field_mask.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/source_context.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/struct.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/timestamp.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/type.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-dependencies/cc171fd4d876a3d858876c839d6b0f2b/google/protobuf/wrappers.proto" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-common/target/protoc-plugins/protoc-3.3.0-windows-x86_64.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/game-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/GatewayMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/GatewayMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/HallMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/HallMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/Mid.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/Mid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/SystemMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/SystemMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/client/RpcClientResponseImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/client/RpcClientResponseImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/proto/GameRpc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/proto/GameServiceGrpc.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketFrameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketFrameHandler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -69,66 +22,31 @@
     <ignored path="$PROJECT_DIR$/game-gateway/target/" />
     <ignored path="$PROJECT_DIR$/game-hall/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="-1726675831">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.0" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="4" />
-          <entry key="xml" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="4" />
-          <entry key="XML" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="java" value="405" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="JAVA" value="405" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/Server.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="WebSocketServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+            <state relative-caret-position="421">
+              <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
               <folding>
-                <element signature="e#516#517#0" expanded="true" />
-                <element signature="e#550#551#0" expanded="true" />
-                <element signature="e#694#695#0" expanded="true" />
-                <element signature="e#737#738#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/game-gateway/src/main/java/com/wmj/game/gateway/GatewayBootstrap.java">
+      <file leaf-file-name="WebSocketFrameHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketFrameHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+            <state relative-caret-position="304">
+              <caret line="25" column="19" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -139,8 +57,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="package-info" />
         <option value="Class" />
+        <option value="package-info" />
       </list>
     </option>
   </component>
@@ -152,24 +70,31 @@
       <list>
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/errorcode/ErrorCode.java" />
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/errorcode/ErrorCode.java" />
-        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/service/ServiceName.java" />
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/errorcode/SystemErrorCode.java" />
         <option value="$PROJECT_DIR$/consul/start.bat" />
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/MID.proto" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/game-engine/pom.xml" />
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/Mid.proto" />
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/ErrorCode.proto" />
         <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/ErrorCode.java" />
-        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/ErrorCode.proto" />
-        <option value="$PROJECT_DIR$/game-common/pom.xml" />
-        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/Mid.proto" />
-        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/SystemMessage.proto" />
-        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/GatewayMessage.proto" />
-        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/HallMessage.proto" />
         <option value="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/Server.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/game-engine/pom.xml" />
         <option value="$PROJECT_DIR$/game-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/game-gateway/src/main/java/com/wmj/game/gateway/GatewayBootstrap.java" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/service/ServiceName.java" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/service/ServiceType.java" />
+        <option value="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketServer.java" />
+        <option value="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/RpcServer.java" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/GatewayMessage.proto" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/HallMessage.proto" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/Mid.proto" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/SystemMessage.proto" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/ErrorCodeOuterClass.java" />
+        <option value="$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/ErrorCode.proto" />
+        <option value="$PROJECT_DIR$/game-common/pom.xml" />
+        <option value="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/GameServer.java" />
+        <option value="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/client/RpcClientResponseImpl.java" />
+        <option value="$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketFrameHandler.java" />
       </list>
     </option>
   </component>
@@ -183,7 +108,7 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\wu\.m2\repository" />
-        <option name="userSettingsFile" value="F:\apache-maven-3.2.2\conf\settings.xml" />
+        <option name="userSettingsFile" value="D:\wu\.m2\settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -197,60 +122,38 @@
       <expand>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="game-gateway" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="game" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="game-gateway" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="game" type="9519ce18:MavenProjectsStructure$ProjectNode" />
           <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
         </path>
       </expand>
       <select />
     </treeState>
   </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1911" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1098" />
+    <option name="x" value="85" />
+    <option name="y" value="25" />
+    <option name="width" value="1750" />
+    <option name="height" value="970" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
               <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
@@ -290,48 +193,28 @@
             <path>
               <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
               <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-gateway" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-gateway" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-gateway" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-gateway" type="462c0819:PsiDirectoryNode" />
+              <item name="game-engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
+              <item name="rpc" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
               <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-gateway" type="462c0819:PsiDirectoryNode" />
+              <item name="game-engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="gateway" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="GameServer" type="b2602c69:ProjectViewProjectNode" />
-              <item name="GameServer" type="462c0819:PsiDirectoryNode" />
-              <item name="game-hall" type="462c0819:PsiDirectoryNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
+              <item name="webSocket" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -340,7 +223,6 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="android.sdk.path" value="D:/wu/android-sdks" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551763662350" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../netty-gameserver" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -348,7 +230,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="io.protostuff.jetbrains.plugin.settings.ProtobufSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
@@ -371,26 +253,63 @@
     </option>
   </component>
   <component name="RunManager">
+    <configuration name="GatewayBootstrap" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.wmj.game.gateway.GatewayBootstrap" />
+      <module name="gamegateway" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.wmj.game.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.GatewayBootstrap" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SshConsoleOptionsProvider">
     <option name="myEncoding" value="UTF-8" />
@@ -420,7 +339,9 @@
       <workItem from="1551624667663" duration="1671000" />
       <workItem from="1551626374992" duration="374000" />
       <workItem from="1551713889283" duration="4080000" />
-      <workItem from="1551762220435" duration="1332000" />
+      <workItem from="1551885693876" duration="2293000" />
+      <workItem from="1551889548287" duration="3207000" />
+      <workItem from="1551979448065" duration="2194000" />
     </task>
     <task id="LOCAL-00001" summary="1.添加maven自动生成protobuf">
       <created>1551628566701</created>
@@ -429,121 +350,108 @@
       <option name="project" value="LOCAL" />
       <updated>1551628566701</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="添加注册服务到consul">
+      <created>1551805471402</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1551805471402</updated>
+    </task>
+    <task id="LOCAL-00003" summary="修改maven生成proto">
+      <created>1551892745573</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1551892745573</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29549000" />
+    <option name="totallyTimeSpent" value="40845000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1911" y="-9" width="1938" height="1098" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22532189" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Capture Tool" order="4" />
-      <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.329429" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3490364" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32869378" />
-      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32894737" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="11" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Database" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Maven Projects" order="8" weight="0.24356224" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="right" id="Capture Analysis" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" weight="0.24396783" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.329429" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.47291362" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32796487" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="2" />
+      <window_info anchor="right" id="Theme Preview" order="3" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.329429" />
+      <window_info anchor="bottom" id="Messages" order="7" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="1.添加maven自动生成protobuf" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.添加maven自动生成protobuf" />
+    <MESSAGE value="添加注册服务到consul" />
+    <MESSAGE value="修改maven生成proto" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改maven生成proto" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/consul/consul">
-      <provider selected="true" editor-type-id="LargeFileEditor">
-        <state relative-caret-position="-551">
-          <caret column="1671" selection-start-column="1671" selection-end-column="1671" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/wu/.m2/repository/org/springframework/cloud/spring-cloud-dependencies/Finchley.SR2/spring-cloud-dependencies-Finchley.SR2.pom" />
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/maven/lib/maven.jar!/schemas/maven-4.0.0.xsd">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="959">
-          <caret line="740" column="6" selection-start-line="740" selection-start-column="6" selection-end-line="740" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/wu/.m2/repository/org/springframework/cloud/spring-cloud-dependencies-parent/2.0.5.RELEASE/spring-cloud-dependencies-parent-2.0.5.RELEASE.pom">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1311" />
-      </provider>
-    </entry>
-    <entry file="file://D:/wu/.m2/repository/org/springframework/cloud/spring-cloud-dependencies/Finchley.SR3/spring-cloud-dependencies-Finchley.SR3.pom">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="6" column="41" lean-forward="true" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/consul/start.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="6" selection-start-column="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/wu/.m2/repository/io/grpc/grpc-all/1.18.0/grpc-all-1.18.0.pom">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1131">
-          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-engine/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/target/classes/com/wmj/game/common/errorcode/ErrorCode.class" />
-    <entry file="file://$PROJECT_DIR$/game-common/target/classes/com/wmj/game/common/errorcode/SystemErrorCode.class" />
-    <entry file="file://$PROJECT_DIR$/game-common/target/generated-sources/protobuf/java/com/wmj/game/common/message/Mid.java" />
-    <entry file="file://$PROJECT_DIR$/game-common/target/generated-sources/protobuf/java/com/wmj/game/common/message/ErrorCodeOuterClass.java" />
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/Mid.proto" />
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/ErrorCode.proto" />
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/ErrorCode.pb.cc" />
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/ErrorCode.pb.h" />
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/ErrorCode_pb2.py" />
     <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/errorcode/SystemErrorCode.java" />
     <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/errorcode/ErrorCode.java" />
     <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/package-info.java">
@@ -553,114 +461,287 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/ErrorCode.java">
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/ErrorCode.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/Mid.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/GatewayMessage.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/HallMessage.java" />
+    <entry file="file://D:/wu/.m2/repository/org/xolstice/maven/plugins/protobuf-maven-plugin/0.5.0/protobuf-maven-plugin-0.5.0.pom">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="-342" />
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/com/squareup/okhttp3/okhttp/3.13.1/okhttp-3.13.1.jar!/okhttp3/HttpUrl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="364" column="26" selection-start-line="364" selection-start-column="26" selection-end-line="364" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/pom.xml">
+    <entry file="jar://D:/wu/.m2/repository/com/squareup/retrofit2/retrofit/2.5.0/retrofit-2.5.0.jar!/retrofit2/Retrofit.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="45" column="60" lean-forward="true" selection-start-line="45" selection-start-column="60" selection-end-line="45" selection-end-column="60" />
+        <state relative-caret-position="105">
+          <caret line="312" column="42" lean-forward="true" selection-start-line="312" selection-start-column="42" selection-end-line="312" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/Mid.java">
+    <entry file="file://$PROJECT_DIR$/game-engine/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/SystemMessage.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="37" selection-start-line="2" selection-start-column="37" selection-end-line="2" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/ErrorCode.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="2" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/GatewayMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2462">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/nano/HallMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/GatewayMessage.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/Mid.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="23" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/HallMessage.proto">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="307">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="jar://D:/wu/.m2/repository/com/orbitz/consul/consul-client/1.3.2/consul-client-1.3.2.jar!/com/orbitz/consul/Consul.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="63" column="12" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+        <state relative-caret-position="608">
+          <caret line="236" column="49" selection-start-line="236" selection-start-column="49" selection-end-line="236" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/service/ServiceName.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        <state relative-caret-position="57">
+          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game-gateway/pom.xml">
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/service/ServiceType.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="470">
-          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+        <state relative-caret-position="179">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/Server.java">
+    <entry file="jar://D:/wu/.m2/repository/com/orbitz/consul/consul-client/1.3.2/consul-client-1.3.2.jar!/com/orbitz/consul/AgentClient.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding>
-            <element signature="e#516#517#0" expanded="true" />
-            <element signature="e#550#551#0" expanded="true" />
-            <element signature="e#694#695#0" expanded="true" />
-            <element signature="e#737#738#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-49">
+          <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/com/orbitz/consul/consul-client/1.3.2/consul-client-1.3.2.jar!/com/orbitz/consul/model/agent/Registration.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="110" column="44" selection-start-line="110" selection-start-column="44" selection-end-line="110" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/com/orbitz/consul/consul-client/1.3.2/consul-client-1.3.2.jar!/com/orbitz/consul/model/agent/ImmutableRegistration.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="361" column="51" selection-start-line="361" selection-start-column="51" selection-end-line="361" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/com/orbitz/consul/consul-client/1.3.2/consul-client-1.3.2.jar!/com/orbitz/consul/model/ConsulResponse.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/com/orbitz/consul/consul-client/1.3.2/consul-client-1.3.2.jar!/com/orbitz/consul/HealthClient.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game-gateway/src/main/java/com/wmj/game/gateway/GatewayBootstrap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        <state relative-caret-position="247">
+          <caret line="13" column="83" selection-start-line="13" selection-start-column="83" selection-end-line="13" selection-end-column="83" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/grpc/grpc-core/1.18.0/grpc-core-1.18.0.jar!/io/grpc/internal/ServerImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="55" column="43" selection-start-line="55" selection-start-column="43" selection-end-line="55" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/grpc/grpc-core/1.18.0/grpc-core-1.18.0.jar!/io/grpc/Server.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="39" column="27" selection-start-line="39" selection-start-column="27" selection-end-line="39" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/RpcServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="29" column="33" selection-start-line="29" selection-start-column="33" selection-end-line="29" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/RpcService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-gateway/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="54" column="25" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/HallMessage.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/Mid.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/SystemMessage.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/GatewayMessage.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="18" selection-start-column="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-common/target/classes/ErrorCode.proto" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/ErrorCodeOuterClass.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/GatewayMessage.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/HallMessage.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/code/Mid.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/src/main/java/com/wmj/game/common/message/proto/ErrorCode.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-common/target/generated-sources/protobuf/java/package-info.java" />
+    <entry file="file://$PROJECT_DIR$/game-common/target/generated-sources/protobuf/dese" />
+    <entry file="file://$PROJECT_DIR$/game-common/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="38" column="50" lean-forward="true" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/proto/GameServiceGrpc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/client/RpcClientResponseImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#627#628#0" expanded="true" />
+            <element signature="e#700#701#0" expanded="true" />
+            <element signature="e#743#744#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/rpc/client/RpcClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/GameServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="54" column="40" lean-forward="true" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/netty/netty-all/4.1.33.Final/netty-all-4.1.33.Final.jar!/io/netty/buffer/DefaultByteBufHolder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/netty/netty-all/4.1.33.Final/netty-all-4.1.33.Final.jar!/io/netty/buffer/SwappedByteBuf.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="465" column="15" selection-start-line="465" selection-start-column="15" selection-end-line="465" selection-end-column="15" />
+          <folding>
+            <element signature="e#11829#11830#0" expanded="true" />
+            <element signature="e#11891#11892#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/netty/netty-all/4.1.33.Final/netty-all-4.1.33.Final.jar!/io/netty/buffer/WrappedByteBuf.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="133" column="21" selection-start-line="133" selection-start-column="21" selection-end-line="133" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/netty/netty-all/4.1.33.Final/netty-all-4.1.33.Final.jar!/io/netty/buffer/AbstractByteBuf.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="79" column="24" lean-forward="true" selection-start-line="79" selection-start-column="24" selection-end-line="79" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/netty/netty-all/4.1.33.Final/netty-all-4.1.33.Final.jar!/io/netty/buffer/CompositeByteBuf.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="1523" column="21" selection-start-line="1523" selection-start-column="21" selection-end-line="1523" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/wu/.m2/repository/io/netty/netty-all/4.1.33.Final/netty-all-4.1.33.Final.jar!/io/netty/buffer/ByteBuf.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="73" column="28" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game-engine/src/main/java/com/wmj/game/engine/webSocket/WebSocketFrameHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="25" column="19" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -704,7 +785,6 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Bundled Protobuf Distribution</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -728,7 +808,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>game-gateway</last-edited>
+          <last-edited>gameengine</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

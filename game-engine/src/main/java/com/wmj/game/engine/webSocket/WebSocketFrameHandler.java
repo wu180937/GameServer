@@ -1,5 +1,6 @@
 package com.wmj.game.engine.webSocket;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
@@ -20,12 +21,14 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame webSocketFrame) {
-        if (webSocketFrame instanceof TextWebSocketFrame) {
-            log.info("TextWebSocketFrame");
-            String request = ((TextWebSocketFrame) webSocketFrame).text();
-            ctx.channel().writeAndFlush(new TextWebSocketFrame(request.toUpperCase(Locale.US)));
-        } else if (webSocketFrame instanceof BinaryWebSocketFrame) {
-            log.info("BinaryWebSocketFrame");
+        if (webSocketFrame instanceof BinaryWebSocketFrame) {
+            BinaryWebSocketFrame frame = BinaryWebSocketFrame.class.cast(webSocketFrame);
+            ByteBuf byteBuf = frame.content();
+            int mid = byteBuf.readInt();
+            byteBuf.resetReaderIndex();
+            byteBuf.array();
+        } else if (webSocketFrame instanceof TextWebSocketFrame) {
+            log.info("TextWebSocketFrame不处理");
         } else {
             log.warn("unsupported frame type : " + webSocketFrame.getClass().getName());
         }
