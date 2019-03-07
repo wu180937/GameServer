@@ -1,12 +1,12 @@
 syntax = "proto3";
-option java_package = "com.wmj.game.common.message.code";
+option java_package = "com.wmj.game.common.message";
 
 //1-5000 		        内部消息
 //5001-10000            网关消息
 //10001-10002           大厅消息
 //20001-99999           游戏消息
 enum MID {
-    Unknow = 0;
+    UnKnow = 0;
     //内部
     ChangeRoleServerReq = 1005; //改变角色服务器
     ChangeRoleServerRes = 1006; //改变角色服务器

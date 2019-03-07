@@ -5,9 +5,18 @@ package com.wmj.game.common.service;
  * @Date: 2019/3/5
  * @Description:
  */
-public interface ServiceType {
-    String Tcp = "tcp";
-    String Udp = "udp";
-    String WebSocket = "websocket";
-    String Rpc = "rpc";
+public enum ServiceType {
+    Tcp("tcp"),
+    Udp("udp"),
+    WebSocket("ws"),
+    Rpc("rpc");
+    String type;
+
+    ServiceType(String type) {
+        this.type = type;
+    }
+
+    public String generateServiceName(ServiceName serviceName) {
+        return "(-" + type + "-)" + serviceName.getName();
+    }
 }

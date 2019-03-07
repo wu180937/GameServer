@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_package = "com.wmj.game.engine.rpc.proto";
+
+message Request {
+    int64 sessionId = 1;
+    bytes data = 2;
+}
+
+message Response {
+    int64 sessionId = 1;
+    bytes data = 2;
+}
+
+service GameService {
+    rpc handle (stream Request) returns (stream Response) {
+    };
+}
