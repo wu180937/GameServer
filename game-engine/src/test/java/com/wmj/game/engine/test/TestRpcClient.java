@@ -13,7 +13,6 @@ import io.grpc.stub.StreamObserver;
 public class TestRpcClient {
     public static void main(String[] args) throws InterruptedException {
         new GameRpcClient().handle();
-        Thread.sleep(60000L);
     }
 
     public static class GameRpcClient {

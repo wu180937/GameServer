@@ -1,0 +1,31 @@
+package com.wmj.game.engine.rpc.client;
+
+import com.wmj.game.engine.rpc.proto.GameRpc;
+import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
+
+/**
+ * @Auther: wumingjie
+ * @Date: 2019/3/7
+ * @Description:
+ */
+public class RpcClient {
+    private GameServiceGrpc.GameServiceStub gameServiceStub;
+    private String host;
+    private int port;
+    private StreamObserver<GameRpc.Request> requestStream;
+    private StreamObserver<GameRpc.Response> responseStream;
+
+    public RpcClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+        this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder.forAddress(this.host, this.port).usePlaintext().build());
+        this.responseStream = new RpcClientResponseImpl();
+        this.requestStream = this.gameServiceStub.handle(this.responseStream);
+    }
+
+    public void send(GameRpc.Request request) {
+        this.requestStream.onNext(request);
+    }
+}

@@ -1,4 +1,4 @@
-package com.wmj.game.engine.rpc;
+package com.wmj.game.engine.rpc.server;
 
 import com.wmj.game.engine.rpc.proto.GameRpc;
 import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
@@ -19,9 +19,7 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
         return new StreamObserver<GameRpc.Request>() {
             @Override
             public void onNext(GameRpc.Request request) {
-                log.info("sessionId : " + request.getSessionId());
-                GameRpc.Response resp = GameRpc.Response.newBuilder().setSessionId(2).build();
-                responseObserver.onNext(resp);
+                long sessionId = request.getSessionId();
             }
 
             @Override

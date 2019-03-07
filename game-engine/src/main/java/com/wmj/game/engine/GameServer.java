@@ -9,7 +9,7 @@ import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.agent.Registration;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.service.ServiceType;
-import com.wmj.game.engine.rpc.RpcServer;
+import com.wmj.game.engine.rpc.server.RpcServer;
 import com.wmj.game.engine.webSocket.WebSocketServer;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import org.apache.commons.lang3.StringUtils;
@@ -48,19 +48,26 @@ public class GameServer {
         register2Consul(ServiceType.Rpc.generateServiceName(this.getServiceName()), host, port);
     }
 
-    private Consul register2Consul(String serviceName, String serviceHost, int servicePort) {
+    public void startRpcClient(ServiceName... serviceNames) {
+        if (serviceNames == null || serviceNames.length == 0) {
+            throw new IllegalArgumentException("start RpcClient serviceNames can not null or empty.");
+        }
+
+    }
+
+    private Consul newConsulClient(String serviceName, String serviceHost, int servicePort) {
         Consul client = Consul.builder().withPing(true).withHostAndPort(HostAndPort.fromParts(consulHost, consulPort)).build();
+        return client;
+    }
+
+    private Consul register2Consul(String serviceName, String serviceHost, int servicePort) {
+        Consul client = newConsulClient(serviceName, serviceHost, servicePort);
         AgentClient agentClient = client.agentClient();
         String serviceId = serviceHost + ":" + servicePort + "_" + serviceName;
         Registration service = ImmutableRegistration.builder()
-                .id(serviceId)
-                .name(serviceName)
-                .address(serviceHost)
-                .port(servicePort)
+                .id(serviceId).name(serviceName).address(serviceHost).port(servicePort)
                 .check(ImmutableRegCheck.builder().ttl("3s").timeout("1s").deregisterCriticalServiceAfter("10s").build())
-                .tags(Collections.singletonList(serviceName))
-                .meta(Collections.emptyMap())
-                .build();
+                .tags(Collections.singletonList(serviceName)).meta(Collections.emptyMap()).build();
         agentClient.register(service);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> client.destroy()));
         consulHealthExecutor.scheduleAtFixedRate(() -> {
