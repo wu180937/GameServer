@@ -1,2 +1,3 @@
 syntax = "proto3";
+option java_package = "com.wmj.game.common.message.code";
 

@@ -20,12 +20,14 @@ import java.security.cert.CertificateException;
 
 public class WebSocketServer implements Runnable {
     private final static Logger log = LoggerFactory.getLogger(WebSocketServer.class);
+    private String host;
     private int port;
     private boolean ssl;
     private String serviceName;
 
-    public WebSocketServer(String serviceName, int port, boolean ssl) {
+    public WebSocketServer(String serviceName, String host, int port, boolean ssl) {
         this.serviceName = serviceName;
+        this.host = host;
         this.port = port;
         this.ssl = ssl;
     }
@@ -49,7 +51,7 @@ public class WebSocketServer implements Runnable {
                     .childHandler(new WebSocketServerInitializer(sslCtx))
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
-            ChannelFuture f = b.bind(port).sync();
+            ChannelFuture f = b.bind(host, port).sync();
             log.info("server [" + serviceName + "] webSocket service started bind port : " + port);
             f.channel().closeFuture().sync();
         } catch (InterruptedException | CertificateException | SSLException e) {

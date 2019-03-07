@@ -12,6 +12,6 @@ import com.wmj.game.engine.GameServer;
 public class GatewayBootstrap {
     public static void main(String[] args) {
         GameServer gameServer = GameServer.builder().setServiceName(ServiceName.GATEWAY).setConsulHost("127.0.0.1").setConsulPort(8500).build();
-        gameServer.startWebSocketServer(9000, false);
+        gameServer.startWebSocketServer("192.168.1.66", 9000, false);
     }
 }

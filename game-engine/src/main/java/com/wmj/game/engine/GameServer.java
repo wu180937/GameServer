@@ -4,6 +4,7 @@ import com.google.common.net.HostAndPort;
 import com.orbitz.consul.AgentClient;
 import com.orbitz.consul.Consul;
 import com.orbitz.consul.NotRegisteredException;
+import com.orbitz.consul.model.agent.ImmutableRegCheck;
 import com.orbitz.consul.model.agent.ImmutableRegistration;
 import com.orbitz.consul.model.agent.Registration;
 import com.wmj.game.common.rpc.RpcServiceName;
@@ -39,7 +40,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class GameServer {
-    private final ScheduledExecutorService consulHealthExecutor = Executors.newSingleThreadScheduledExecutor();
     private final static Logger log = LoggerFactory.getLogger(GameServer.class);
     private ServiceName serviceName;
     private String consulHost;
@@ -55,40 +55,35 @@ public class GameServer {
         return serviceName;
     }
 
-    public void startWebSocketServer(int port, boolean ssl) {
-        new Thread(new WebSocketServer(serviceName.getName(), port, ssl)).start();
-        register2Consul(generateServiceName(ServiceType.WebSocket), port);
+    public void startWebSocketServer(String host, int port, boolean ssl) {
+        new Thread(new WebSocketServer(serviceName.getName(), host, port, ssl)).start();
+        register2Consul(generateServiceName(ServiceType.WebSocket), host, port);
     }
 
-    public void startRpcServer(int port) {
-
-        register2Consul(generateServiceName(ServiceType.Rpc), port);
+    public void startRpcServer(String host, int port) {
+        register2Consul(generateServiceName(ServiceType.Rpc), host, port);
     }
 
     private String generateServiceName(String serviceType) {
-        return serviceType + ":" + this.serviceName.getName();
+        return serviceType + "-" + this.serviceName.getName();
     }
 
-    private Consul register2Consul(String serviceName, int servicePort) {
+    private Consul register2Consul(String serviceName, String serviceHost, int servicePort) {
         Consul client = Consul.builder().withPing(true).withHostAndPort(HostAndPort.fromParts(consulHost, consulPort)).build();
         AgentClient agentClient = client.agentClient();
-        String serviceId = serviceName + ":" + servicePort;
+        String serviceId = serviceHost + ":" + servicePort + "_" + serviceName;
         Registration service = ImmutableRegistration.builder()
                 .id(serviceId)
                 .name(serviceName)
+                .address(serviceHost)
                 .port(servicePort)
-                .check(Registration.RegCheck.ttl(3L)) // registers with a TTL of 3 seconds
-                .tags(Collections.emptyList())
+                .check(ImmutableRegCheck.builder().tcp(serviceHost + ":" + servicePort)
+                        .interval("3s").timeout("1s").deregisterCriticalServiceAfter("10s").build())
+                .tags(Collections.singletonList(serviceName))
                 .meta(Collections.emptyMap())
                 .build();
         agentClient.register(service);
-        consulHealthExecutor.scheduleAtFixedRate(() -> {
-            try {
-                agentClient.pass(serviceId);
-            } catch (NotRegisteredException e) {
-                log.error("出错了", e);
-            }
-        }, 0, 1, TimeUnit.SECONDS);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> client.destroy()));
         return client;
     }
 

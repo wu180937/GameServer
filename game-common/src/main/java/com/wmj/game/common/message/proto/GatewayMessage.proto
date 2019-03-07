@@ -1,5 +1,7 @@
 syntax = "proto3";
 import "Mid.proto";
+import "ErrorCode.proto";
+option java_package = "com.wmj.game.common.message.code";
 
 message ping {
     MID mid = 1;
@@ -7,5 +9,6 @@ message ping {
 
 message pong {
     MID mid = 1;
-    int64 systemTime = 2;
+    Code errorCode = 2;
+    int64 systemTime = 3;
 }
