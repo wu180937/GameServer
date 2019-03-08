@@ -5,6 +5,8 @@ import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @Auther: wumingjie
  * @Date: 2019/3/7
@@ -20,7 +22,11 @@ public class RpcClient {
     public RpcClient(String host, int port) {
         this.host = host;
         this.port = port;
-        this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder.forAddress(this.host, this.port).usePlaintext().build());
+        this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder
+                .forAddress(this.host, this.port).usePlaintext()
+                .keepAliveTime(10, TimeUnit.SECONDS)
+                .keepAliveTimeout(5, TimeUnit.SECONDS)
+                .build());
         this.responseStream = new RpcClientResponseImpl();
         this.requestStream = this.gameServiceStub.handle(this.responseStream);
     }

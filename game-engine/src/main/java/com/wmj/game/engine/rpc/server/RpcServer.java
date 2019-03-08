@@ -7,8 +7,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
-public class RpcServer {
+public class RpcServer implements Runnable {
     private final static Logger log = LoggerFactory.getLogger(RpcServer.class);
     private String serviceName;
     private String host;
@@ -20,13 +21,19 @@ public class RpcServer {
         this.port = port;
     }
 
-    public void start() {
-        final Server server = NettyServerBuilder.forAddress(new InetSocketAddress(host, port)).addService(new RpcGameServiceImpl().bindService()).build();
+    @Override
+    public void run() {
+        final Server server = NettyServerBuilder.forAddress(new InetSocketAddress(host, port))
+                .addService(new RpcGameServiceImpl().bindService())
+//                .keepAliveTime(10, TimeUnit.SECONDS)
+//                .keepAliveTimeout(30, TimeUnit.SECONDS)
+                .permitKeepAliveTime(10, TimeUnit.SECONDS)
+                .build();
         try {
             server.start();
             log.info("server [" + serviceName + "] rpc service started bind port : " + port);
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> server.shutdown()));
-        } catch (IOException e) {
+            server.awaitTermination();
+        } catch (IOException | InterruptedException e) {
             log.error("出错了", e);
         }
     }

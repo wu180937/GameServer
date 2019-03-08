@@ -44,7 +44,7 @@ public class GameServer {
     }
 
     public void startRpcServer(String host, int port) {
-        new RpcServer(this.getServiceName().getName(), host, port).start();
+        new Thread(new RpcServer(this.getServiceName().getName(), host, port)).start();
         register2Consul(ServiceType.Rpc.generateServiceName(this.getServiceName()), host, port);
     }
 
