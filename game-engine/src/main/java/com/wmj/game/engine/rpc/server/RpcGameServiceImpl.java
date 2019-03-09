@@ -20,7 +20,8 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
             @Override
             public void onNext(GameRpc.Request request) {
                 long sessionId = request.getSessionId();
-                responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(sessionId).build());
+                log.info("" + sessionId);
+//                responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(sessionId).build());
             }
 
             @Override

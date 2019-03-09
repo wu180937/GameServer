@@ -14,12 +14,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class RpcClient {
     private GameServiceGrpc.GameServiceStub gameServiceStub;
+    private String serviceId;
     private String host;
     private int port;
     private StreamObserver<GameRpc.Request> requestStream;
     private StreamObserver<GameRpc.Response> responseStream;
 
-    public RpcClient(String host, int port) {
+    public RpcClient(String serviceId, String host, int port) {
+        this.serviceId = serviceId;
         this.host = host;
         this.port = port;
         this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder
@@ -29,6 +31,10 @@ public class RpcClient {
                 .build());
         this.responseStream = new RpcClientResponseImpl();
         this.requestStream = this.gameServiceStub.handle(this.responseStream);
+    }
+
+    public String getServiceId() {
+        return serviceId;
     }
 
     public void send(GameRpc.Request request) {

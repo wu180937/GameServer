@@ -21,7 +21,7 @@ public class TestRpcClient {
 
     public static class GameRpcClient {
         private GameServiceGrpc.GameServiceStub gameServiceStub;
-        final CountDownLatch latch = new CountDownLatch(5);
+        final CountDownLatch latch = new CountDownLatch(1);
 
         public GameRpcClient() {
             this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder
@@ -51,7 +51,9 @@ public class TestRpcClient {
                 }
             };
             StreamObserver<GameRpc.Request> request = this.gameServiceStub.handle(resp);
-            request.onNext(GameRpc.Request.newBuilder().setSessionId(1l).build());
+            for (int i = 0; i < 10000; i++) {
+                request.onNext(GameRpc.Request.newBuilder().setSessionId(i).build());
+            }
             latch.await();
         }
     }
