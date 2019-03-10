@@ -5,6 +5,7 @@ import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,5 +40,18 @@ public class RpcClient {
 
     public void send(GameRpc.Request request) {
         this.requestStream.onNext(request);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RpcClient rpcClient = (RpcClient) o;
+        return Objects.equals(serviceId, rpcClient.serviceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(serviceId);
     }
 }

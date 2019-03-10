@@ -1,6 +1,5 @@
 package com.wmj.game.engine.webSocket;
 
-import com.wmj.game.engine.GameServer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;

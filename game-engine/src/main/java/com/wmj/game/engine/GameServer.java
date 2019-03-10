@@ -11,6 +11,7 @@ import com.orbitz.consul.model.health.ServiceHealth;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.service.ServiceType;
 import com.wmj.game.engine.rpc.client.RpcClient;
+import com.wmj.game.engine.rpc.client.RpcClientPool;
 import com.wmj.game.engine.rpc.server.RpcServer;
 import com.wmj.game.engine.webSocket.WebSocketServer;
 import io.netty.util.HashingStrategy;
@@ -20,10 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class GameServer {
     private final static Logger log = LoggerFactory.getLogger(GameServer.class);
@@ -33,7 +31,7 @@ public class GameServer {
     private int consulPort;
     private Consul consulClient;
     private ServiceName[] rpcClientServiceNames = {};
-    private final ConcurrentHashMap<ServiceName, List<RpcClient>> serviceRpcClientMap;
+    private final ConcurrentHashMap<ServiceName, RpcClientPool> serviceRpcClientMap;
 
     public GameServer(ServiceName serviceName, String consulHost, int consulPort) {
         this.serviceName = serviceName;
@@ -62,16 +60,14 @@ public class GameServer {
             throw new IllegalArgumentException("start RpcClient serviceNames can not null or empty.");
         }
         this.rpcClientServiceNames = serviceNames;
-        consulHealthExecutor.scheduleAtFixedRate(() -> {
+        consulHealthExecutor.scheduleWithFixedDelay(() -> {
             Arrays.stream(this.rpcClientServiceNames).forEach(serviceName -> {
+                RpcClientPool rpcClientPool = this.serviceRpcClientMap.putIfAbsent(serviceName, new RpcClientPool());
                 List<ServiceHealth> serviceHealths = this.consulClient.healthClient()
                         .getHealthyServiceInstances(ServiceType.Rpc.generateServiceName(serviceName)).getResponse();
-                serviceHealths.stream().forEach(serviceHealth -> {
-                    log.info(serviceHealth.getService().getId());
-                    List<RpcClient> rpcClients = this.serviceRpcClientMap.putIfAbsent(serviceName, Collections.synchronizedList(new ArrayList<>()));
-                });
+
             });
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, 10, TimeUnit.SECONDS);
     }
 
     private Consul newConsulClient() {
