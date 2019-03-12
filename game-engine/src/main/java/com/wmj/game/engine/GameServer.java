@@ -62,10 +62,10 @@ public class GameServer {
         this.rpcClientServiceNames = serviceNames;
         consulHealthExecutor.scheduleWithFixedDelay(() -> {
             Arrays.stream(this.rpcClientServiceNames).forEach(serviceName -> {
-                RpcClientPool rpcClientPool = this.serviceRpcClientMap.putIfAbsent(serviceName, new RpcClientPool());
+                RpcClientPool rpcClientPool = this.serviceRpcClientMap.putIfAbsent(serviceName, new RpcClientPool(serviceName.getName() + "-pool"));
                 List<ServiceHealth> serviceHealths = this.consulClient.healthClient()
                         .getHealthyServiceInstances(ServiceType.Rpc.generateServiceName(serviceName)).getResponse();
-
+                consulHealthExecutor.scheduleWithFixedDelay(() -> rpcClientPool.refresh(serviceHealths), 0, 5, TimeUnit.SECONDS);
             });
         }, 0, 10, TimeUnit.SECONDS);
     }

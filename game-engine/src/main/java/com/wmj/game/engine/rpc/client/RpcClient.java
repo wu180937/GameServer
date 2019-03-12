@@ -43,6 +43,15 @@ public class RpcClient {
     }
 
     @Override
+    public String toString() {
+        return "RpcClient{" +
+                "serviceId='" + serviceId + '\'' +
+                ", host='" + host + '\'' +
+                ", port=" + port +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

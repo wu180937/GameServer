@@ -17,9 +17,9 @@ public class GatewayBootstrap {
 
     public static void main(String[] args) {
         GameServer gameServer = GameServer.builder().setServiceName(ServiceName.GATEWAY).setConsulHost("127.0.0.1").setConsulPort(8500).build();
-        gameServer.startWebSocketServer("192.168.1.66", 10086, false);
         gameServer.startRpcServer("192.168.1.66", 10087);
-        gameServer.startRpcClient(ServiceName.GATEWAY);
+        gameServer.startRpcClient(ServiceName.HALL);
+        gameServer.startWebSocketServer("192.168.1.66", 10086, false);
         log.info("Gateway started.");
     }
 }
