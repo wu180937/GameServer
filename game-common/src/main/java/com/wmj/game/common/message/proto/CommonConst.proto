@@ -1,11 +1,24 @@
 syntax = "proto3";
-option java_package = "com.wmj.game.common.message";
+option java_package = "com.wmj.game.common.message.core";
+option java_multiple_files = true;
 
 //1-5000 		        内部消息
 //5001-10000            网关消息
-//10001-10002           大厅消息
-//20001-99999           游戏消息
-enum MID {
+//10001-20000           大厅消息
+//20001-100000           游戏消息
+enum CmdLimit {
+    Zero = 0;
+    SystemBeginCmd = 1;
+    SystemEndCmd = 5000;
+    GateWayBeginCmd = 5001;
+    GateWayEndCmd = 10000;
+    HallBeginCmd = 10001;
+    HallEndCmd = 20000;
+    GameBeginCmd = 20001;
+    GameEndCmd = 100000;
+}
+
+enum Cmd {
     UnKnow = 0;
     //内部
     ChangeRoleServerReq = 1005; //改变角色服务器

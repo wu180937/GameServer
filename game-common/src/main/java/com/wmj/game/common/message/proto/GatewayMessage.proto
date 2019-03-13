@@ -1,0 +1,13 @@
+syntax = "proto3";
+import "CommonConst.proto";
+option java_package = "com.wmj.game.common.message.core";
+
+message PingReq {
+    Cmd cmd = 1;
+}
+
+message PongRes {
+    Cmd cmd = 1;
+    int32 errorCode = 2;
+    int64 systemTime = 3;
+}

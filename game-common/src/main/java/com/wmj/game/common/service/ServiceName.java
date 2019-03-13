@@ -3,6 +3,7 @@ package com.wmj.game.common.service;
 public enum ServiceName {
     GATEWAY(1, "gateway", "网关"),
     HALL(2, "hall", "大厅"),
+    GAME(3, "game", "游戏"),
     //
     ;
 

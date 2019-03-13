@@ -14,8 +14,9 @@ public class HallBootstrap {
     private final static Logger log = LoggerFactory.getLogger(HallBootstrap.class);
 
     public static void main(String[] args) {
-        GameServer gameServer = GameServer.builder().setServiceName(ServiceName.HALL).setConsulHost("127.0.0.1").setConsulPort(8500).build();
-        gameServer.startRpcServer("192.168.1.66", 11080);
+        GameServer gameServer = GameServer.getInstance();
+        gameServer.init(ServiceName.HALL, "127.0.0.1", 8500);
+        gameServer.startRpcServer("127.0.0.1", 11080);
         log.info("hall started.");
     }
 }

@@ -10,6 +10,7 @@ import com.orbitz.consul.model.agent.Registration;
 import com.orbitz.consul.model.health.ServiceHealth;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.service.ServiceType;
+import com.wmj.game.engine.dispatcher.CmdDispatcher;
 import com.wmj.game.engine.rpc.client.RpcClient;
 import com.wmj.game.engine.rpc.client.RpcClientPool;
 import com.wmj.game.engine.rpc.server.RpcServer;
@@ -24,21 +25,38 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class GameServer {
+    private final static GameServer INSTANCE = new GameServer();
     private final static Logger log = LoggerFactory.getLogger(GameServer.class);
     private final static ScheduledExecutorService consulHealthExecutor = Executors.newSingleThreadScheduledExecutor(new DefaultThreadFactory("consulHealthExecutor"));
+    private boolean init;
     private ServiceName serviceName;
     private String consulHost;
     private int consulPort;
     private Consul consulClient;
     private ServiceName[] rpcClientServiceNames = {};
-    private final ConcurrentHashMap<ServiceName, RpcClientPool> serviceRpcClientMap;
+    private final ConcurrentHashMap<ServiceName, RpcClientPool> serviceRpcClientMap = new ConcurrentHashMap<>();
 
-    public GameServer(ServiceName serviceName, String consulHost, int consulPort) {
+    public static GameServer getInstance() {
+        return INSTANCE;
+    }
+
+    private GameServer() {
+    }
+
+    public synchronized void init(ServiceName serviceName, String consulHost, int consulPort) {
+        if (init) {
+            throw new RuntimeException("GameServer");
+        }
+        this.init = true;
         this.serviceName = serviceName;
         this.consulHost = consulHost;
         this.consulPort = consulPort;
         this.consulClient = newConsulClient();
-        this.serviceRpcClientMap = new ConcurrentHashMap<>();
+        CmdDispatcher.getInstance().init();//初始化指令分派器
+    }
+
+    public boolean isInit() {
+        return init;
     }
 
     public ServiceName getServiceName() {
@@ -94,41 +112,4 @@ public class GameServer {
         return client;
     }
 
-    public static GameServer.Builder builder() {
-        return new GameServer.Builder();
-    }
-
-    public static class Builder {
-        private ServiceName serviceName;
-        private String consulHost;
-        private int consulPort;
-
-        public Builder setServiceName(ServiceName serviceName) {
-            this.serviceName = serviceName;
-            return this;
-        }
-
-        public Builder setConsulHost(String consulHost) {
-            this.consulHost = consulHost;
-            return this;
-        }
-
-        public Builder setConsulPort(int consulPort) {
-            this.consulPort = consulPort;
-            return this;
-        }
-
-        public GameServer build() {
-            if (serviceName == null) {
-                throw new IllegalArgumentException("serviceName cannot null.");
-            }
-            if (StringUtils.isEmpty(consulHost)) {
-                throw new IllegalArgumentException("consulHost cannot null or empty.");
-            }
-            if (consulPort < 1) {
-                throw new IllegalArgumentException("consulPort is require.");
-            }
-            return new GameServer(serviceName, consulHost, consulPort);
-        }
-    }
 }
