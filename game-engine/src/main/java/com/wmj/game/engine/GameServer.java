@@ -45,7 +45,7 @@ public class GameServer {
 
     public synchronized void init(ServiceName serviceName, String consulHost, int consulPort) {
         if (init) {
-            throw new RuntimeException("GameServer");
+            throw new RuntimeException("GameServer Initialized.");
         }
         this.init = true;
         this.serviceName = serviceName;

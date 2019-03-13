@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * @Date: 2019/3/13
  * @Description:
  */
-@Target({ElementType.METHOD, ElementType.TYPE})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SystemCmd {
     int cmd();
