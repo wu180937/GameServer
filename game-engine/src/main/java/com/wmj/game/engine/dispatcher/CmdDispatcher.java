@@ -1,12 +1,13 @@
 package com.wmj.game.engine.dispatcher;
 
+import com.wmj.game.common.message.core.Cmd;
 import com.wmj.game.common.message.core.CmdLimit;
-import com.wmj.game.engine.annotation.CmdBean;
-import com.wmj.game.engine.annotation.CmdParam;
+import com.wmj.game.engine.annotation.*;
 import liquibase.servicelocator.DefaultPackageScanClassResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -20,60 +21,89 @@ import java.util.Set;
  * @Date: 2019/3/13
  * @Description:
  */
-public class CmdDispatcher {
+public abstract class CmdDispatcher {
     private final static Logger log = LoggerFactory.getLogger(CmdDispatcher.class);
-    private final static CmdDispatcher INSTANCE = new CmdDispatcher();
     private final static String SCAN_PACKAGE_NAME = "com.wmj.game";
 
-    private CmdDispatcher() {
-    }
-
-    public static CmdDispatcher getInstance() {
-        return INSTANCE;
-    }
-
-    public void init() {
-        initGatewayCmd();
+    protected CmdDispatcher() {
+        init();
     }
 
     public void dispatcher(int cmd, byte[] data) {
         if (cmd >= CmdLimit.SystemBeginCmd_VALUE && cmd <= CmdLimit.SystemEndCmd_VALUE) {
-
+            systemHandler(cmd, data);
         } else if (cmd >= CmdLimit.GateWayBeginCmd_VALUE && cmd <= CmdLimit.GateWayEndCmd_VALUE) {
-
+            gatewayHandler(cmd, data);
         } else if (cmd >= CmdLimit.HallBeginCmd_VALUE && cmd <= CmdLimit.HallEndCmd_VALUE) {
-
+            hallHandler(cmd, data);
         } else if (cmd >= CmdLimit.GameBeginCmd_VALUE && cmd <= CmdLimit.GameEndCmd_VALUE) {
-
+            gameHandler(cmd, data);
         } else {
             log.warn("接收到超出限制的cmd : " + cmd);
         }
     }
 
-    private void initGatewayCmd() {
+    protected void systemHandler(int cmd, byte[] data) {
+
+    }
+
+    protected void gatewayHandler(int cmd, byte[] data) {
+
+    }
+
+    protected void hallHandler(int cmd, byte[] data) {
+
+    }
+
+    protected void gameHandler(int cmd, byte[] data) {
+
+    }
+
+    private void init() {
         DefaultPackageScanClassResolver classResolver = new DefaultPackageScanClassResolver();
         classResolver.addClassLoader(Thread.currentThread().getContextClassLoader());
-        Set<Class<?>> clazzSet = classResolver.findByFilter(c -> c.isAnnotationPresent(CmdBean.class) && !(c.isAnnotation() || c.isEnum() || c.isInterface() || c.isPrimitive()), SCAN_PACKAGE_NAME);
+        Set<Class<?>> clazzSet = classResolver.findByFilter(
+                c -> c.isAnnotationPresent(CmdBean.class) && !(c.isAnnotation() || c.isEnum() || c.isInterface() || c.isPrimitive()),
+                SCAN_PACKAGE_NAME);
         clazzSet.stream().forEach(clazz -> {
-
             Arrays.stream(clazz.getMethods()).forEach(method -> {
-
+                try {
+                    Object obj = clazz.newInstance();
+                    if (clazz.isAnnotationPresent(PostConstruct.class)) {// 初始化类
+                        method.invoke(obj);
+                    }
+                    if (method.isAnnotationPresent(SystemCmd.class)) {
+                        SystemCmd systemCmd = method.getAnnotation(SystemCmd.class);
+                    }
+                    if (method.isAnnotationPresent(GatewayCmd.class)) {
+                        GatewayCmd gatewayCmd = method.getAnnotation(GatewayCmd.class);
+                    }
+                    if (method.isAnnotationPresent(HallCmd.class)) {
+                        HallCmd hallCmd = method.getAnnotation(HallCmd.class);
+                    }
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
             });
         });
     }
 
-    private class CmdObject {
-        private String cmd;
+    private static class CmdObject {
+        private int cmd;
         private Object object;
         private Method method;
 
-        public CmdObject(String cmd, Object object, Method method) {
+        public CmdObject(int cmd, Object object, Method method) {
             this.cmd = cmd;
             this.object = object;
             this.method = method;
         }
 
-        public String getCmd() {
+        public int getCmd() {
             return cmd;
         }
 
