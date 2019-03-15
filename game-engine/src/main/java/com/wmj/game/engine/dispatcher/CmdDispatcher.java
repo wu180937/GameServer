@@ -1,5 +1,6 @@
 package com.wmj.game.engine.dispatcher;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.wmj.game.common.message.core.Cmd;
 import com.wmj.game.common.message.core.CmdLimit;
 import com.wmj.game.engine.annotation.*;
@@ -15,6 +16,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Auther: wumingjie
@@ -24,6 +26,9 @@ import java.util.Set;
 public abstract class CmdDispatcher {
     private final static Logger log = LoggerFactory.getLogger(CmdDispatcher.class);
     private final static String SCAN_PACKAGE_NAME = "com.wmj.game";
+    private final static ConcurrentHashMap<Integer, CmdObject> systemCmdMap = new ConcurrentHashMap<>();
+    private final static ConcurrentHashMap<Integer, CmdObject> gatewayCmdMap = new ConcurrentHashMap<>();
+    private final static ConcurrentHashMap<Integer, CmdObject> hallCmdMap = new ConcurrentHashMap<>();
 
     protected CmdDispatcher() {
         init();
@@ -44,15 +49,24 @@ public abstract class CmdDispatcher {
     }
 
     protected void systemHandler(int cmd, byte[] data) {
-
+        CmdObject cmdObject = systemCmdMap.get(cmd);
+        if (cmdObject == null) {
+            log.error("未知的cmd : " + cmd);
+        }
     }
 
     protected void gatewayHandler(int cmd, byte[] data) {
-
+        CmdObject cmdObject = gatewayCmdMap.get(cmd);
+        if (cmdObject == null) {
+            log.error("未知的cmd : " + cmd);
+        }
     }
 
     protected void hallHandler(int cmd, byte[] data) {
-
+        CmdObject cmdObject = hallCmdMap.get(cmd);
+        if (cmdObject == null) {
+            log.error("未知的cmd : " + cmd);
+        }
     }
 
     protected void gameHandler(int cmd, byte[] data) {
@@ -74,12 +88,15 @@ public abstract class CmdDispatcher {
                     }
                     if (method.isAnnotationPresent(SystemCmd.class)) {
                         SystemCmd systemCmd = method.getAnnotation(SystemCmd.class);
+                        systemCmdMap.put(systemCmd.cmd(), new CmdObject(systemCmd.cmd(), obj, method, systemCmd.protoClazz()));
                     }
                     if (method.isAnnotationPresent(GatewayCmd.class)) {
                         GatewayCmd gatewayCmd = method.getAnnotation(GatewayCmd.class);
+                        gatewayCmdMap.put(gatewayCmd.cmd(), new CmdObject(gatewayCmd.cmd(), obj, method, gatewayCmd.protoClazz()));
                     }
                     if (method.isAnnotationPresent(HallCmd.class)) {
                         HallCmd hallCmd = method.getAnnotation(HallCmd.class);
+                        hallCmdMap.put(hallCmd.cmd(), new CmdObject(hallCmd.cmd(), obj, method, hallCmd.protoClazz()));
                     }
                 } catch (InstantiationException e) {
                     e.printStackTrace();
@@ -96,11 +113,13 @@ public abstract class CmdDispatcher {
         private int cmd;
         private Object object;
         private Method method;
+        private Class<? extends GeneratedMessageV3> protoClazz;
 
-        public CmdObject(int cmd, Object object, Method method) {
+        public CmdObject(int cmd, Object object, Method method, Class<? extends GeneratedMessageV3> protoClazz) {
             this.cmd = cmd;
             this.object = object;
             this.method = method;
+            this.protoClazz = protoClazz;
         }
 
         public int getCmd() {
@@ -113,6 +132,10 @@ public abstract class CmdDispatcher {
 
         public Method getMethod() {
             return method;
+        }
+
+        public Class<? extends GeneratedMessageV3> getProtoClazz() {
+            return protoClazz;
         }
 
         @Override

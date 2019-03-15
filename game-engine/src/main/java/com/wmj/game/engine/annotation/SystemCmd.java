@@ -17,5 +17,5 @@ import java.lang.annotation.Target;
 public @interface SystemCmd {
     int cmd();
 
-    Class<GeneratedMessageV3> protoClazz();
+    Class<? extends GeneratedMessageV3> protoClazz();
 }
