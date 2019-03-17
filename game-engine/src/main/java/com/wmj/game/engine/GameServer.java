@@ -11,9 +11,11 @@ import com.orbitz.consul.model.health.ServiceHealth;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.service.ServiceType;
 import com.wmj.game.engine.dispatcher.CmdDispatcher;
+import com.wmj.game.engine.dispatcher.GatewayCmdDispatcher;
 import com.wmj.game.engine.rpc.client.RpcClient;
 import com.wmj.game.engine.rpc.client.RpcClientPool;
 import com.wmj.game.engine.rpc.server.RpcServer;
+import com.wmj.game.engine.rpc.server.RpcServerParam;
 import com.wmj.game.engine.webSocket.WebSocketServer;
 import io.netty.util.HashingStrategy;
 import io.netty.util.concurrent.DefaultThreadFactory;
@@ -33,7 +35,6 @@ public class GameServer {
     private String consulHost;
     private int consulPort;
     private Consul consulClient;
-    private ServiceName[] rpcClientServiceNames = {};
     private final ConcurrentHashMap<ServiceName, RpcClientPool> serviceRpcClientMap = new ConcurrentHashMap<>();
 
     public static GameServer getInstance() {
@@ -43,7 +44,7 @@ public class GameServer {
     private GameServer() {
     }
 
-    public synchronized void init(ServiceName serviceName, String consulHost, int consulPort) {
+    public synchronized void start(ServiceName serviceName, String consulHost, int consulPort) {
         if (init) {
             throw new RuntimeException("GameServer Initialized.");
         }
@@ -52,7 +53,6 @@ public class GameServer {
         this.consulHost = consulHost;
         this.consulPort = consulPort;
         this.consulClient = newConsulClient();
-        CmdDispatcher.getInstance().init();//初始化指令分派器
     }
 
     public boolean isInit() {
@@ -63,29 +63,28 @@ public class GameServer {
         return serviceName;
     }
 
-    public void startWebSocketServer(String host, int port, boolean ssl) {
-        new Thread(new WebSocketServer(this.getServiceName().getName(), host, port, ssl)).start();
+    public void startGatewayServer(String host, int port, boolean ssl) {
+        new Thread(new WebSocketServer(this.getServiceName().getName(), host, port, ssl, new GatewayCmdDispatcher())).start();
         register2Consul(ServiceType.WebSocket.generateServiceName(this.getServiceName()), host, port);
     }
 
-    public void startRpcServer(String host, int port) {
-        new Thread(new RpcServer(this.getServiceName().getName(), host, port)).start();
-        register2Consul(ServiceType.Rpc.generateServiceName(this.getServiceName()), host, port);
+    public void startRpcServer(RpcServerParam... rpcServerParams) {
+        if (rpcServerParams == null || rpcServerParams.length == 0) {
+            throw new IllegalArgumentException("start startRpcServer rpcServerParams can not null or empty.");
+        }
+        Arrays.stream(rpcServerParams).forEach(rpcServerParam -> {
+            new Thread(new RpcServer(rpcServerParam.getServiceName().getName(), rpcServerParam.getHost(), rpcServerParam.getPort())).start();
+            register2Consul(ServiceType.Rpc.generateServiceName(rpcServerParam.getServiceName()), rpcServerParam.getHost(), rpcServerParam.getPort());
+        });
     }
 
     public void startRpcClient(ServiceName... serviceNames) {
         if (serviceNames == null || serviceNames.length == 0) {
             throw new IllegalArgumentException("start RpcClient serviceNames can not null or empty.");
         }
-        this.rpcClientServiceNames = serviceNames;
-        consulHealthExecutor.scheduleWithFixedDelay(() -> {
-            Arrays.stream(this.rpcClientServiceNames).forEach(serviceName -> {
-                RpcClientPool rpcClientPool = this.serviceRpcClientMap.putIfAbsent(serviceName, new RpcClientPool(serviceName.getName() + "-pool"));
-                List<ServiceHealth> serviceHealths = this.consulClient.healthClient()
-                        .getHealthyServiceInstances(ServiceType.Rpc.generateServiceName(serviceName)).getResponse();
-                consulHealthExecutor.scheduleWithFixedDelay(() -> rpcClientPool.refresh(serviceHealths), 0, 5, TimeUnit.SECONDS);
-            });
-        }, 0, 10, TimeUnit.SECONDS);
+        Arrays.stream(serviceNames).forEach(sn -> {
+            this.serviceRpcClientMap.putIfAbsent(sn, RpcClientPool.create(sn, consulClient, consulHealthExecutor));
+        });
     }
 
     private Consul newConsulClient() {
@@ -110,6 +109,10 @@ public class GameServer {
             }
         }, 1, 1, TimeUnit.SECONDS);
         return client;
+    }
+
+    public RpcClientPool getRpcClientPool(ServiceName serviceName) {
+        return this.getRpcClientPool(serviceName);
     }
 
 }

@@ -42,6 +42,10 @@ public class RpcClient {
         this.requestStream.onNext(request);
     }
 
+    public void close() {
+        this.responseStream.onCompleted();
+    }
+
     @Override
     public String toString() {
         return "RpcClient{" +

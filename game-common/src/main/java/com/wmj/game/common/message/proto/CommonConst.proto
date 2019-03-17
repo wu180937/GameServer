@@ -10,8 +10,8 @@ enum CmdLimit {
     Zero = 0;
     SystemBeginCmd = 1;
     SystemEndCmd = 5000;
-    GateWayBeginCmd = 5001;
-    GateWayEndCmd = 10000;
+    GatewayBeginCmd = 5001;
+    GatewayEndCmd = 10000;
     HallBeginCmd = 10001;
     HallEndCmd = 20000;
     GameBeginCmd = 20001;

@@ -1,20 +1,15 @@
 package com.wmj.game.engine.dispatcher;
 
-import com.google.protobuf.GeneratedMessageV3;
-import com.wmj.game.common.message.core.Cmd;
 import com.wmj.game.common.message.core.CmdLimit;
 import com.wmj.game.engine.annotation.*;
+import com.wmj.game.engine.manage.Session;
 import liquibase.servicelocator.DefaultPackageScanClassResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,53 +20,52 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class CmdDispatcher {
     private final static Logger log = LoggerFactory.getLogger(CmdDispatcher.class);
-    private final static String SCAN_PACKAGE_NAME = "com.wmj.game";
-    private final static ConcurrentHashMap<Integer, CmdObject> systemCmdMap = new ConcurrentHashMap<>();
-    private final static ConcurrentHashMap<Integer, CmdObject> gatewayCmdMap = new ConcurrentHashMap<>();
-    private final static ConcurrentHashMap<Integer, CmdObject> hallCmdMap = new ConcurrentHashMap<>();
+    protected final static String SCAN_PACKAGE_NAME = "com.wmj.game";
+    protected final static ConcurrentHashMap<Integer, CmdObject> systemCmdMap = new ConcurrentHashMap<>();
+    protected final static ConcurrentHashMap<Integer, CmdObject> gatewayCmdMap = new ConcurrentHashMap<>();
+    protected final static ConcurrentHashMap<Integer, CmdObject> hallCmdMap = new ConcurrentHashMap<>();
 
     protected CmdDispatcher() {
         init();
     }
 
-    public void dispatcher(int cmd, byte[] data) {
-        if (cmd >= CmdLimit.SystemBeginCmd_VALUE && cmd <= CmdLimit.SystemEndCmd_VALUE) {
-            systemHandler(cmd, data);
-        } else if (cmd >= CmdLimit.GateWayBeginCmd_VALUE && cmd <= CmdLimit.GateWayEndCmd_VALUE) {
-            gatewayHandler(cmd, data);
-        } else if (cmd >= CmdLimit.HallBeginCmd_VALUE && cmd <= CmdLimit.HallEndCmd_VALUE) {
-            hallHandler(cmd, data);
-        } else if (cmd >= CmdLimit.GameBeginCmd_VALUE && cmd <= CmdLimit.GameEndCmd_VALUE) {
-            gameHandler(cmd, data);
+    public void dispatcher(Session session, int cmd, byte[] data) {
+        if (isSystemCmd(cmd)) {
+            systemHandler(session, cmd, data);
+        } else if (isGatewayCmd(cmd)) {
+            gatewayHandler(session, cmd, data);
+        } else if (isHallCmd(cmd)) {
+            hallHandler(session, cmd, data);
+        } else if (isGameCmd(cmd)) {
+            gameHandler(session, cmd, data);
         } else {
             log.warn("接收到超出限制的cmd : " + cmd);
         }
     }
 
-    protected void systemHandler(int cmd, byte[] data) {
-        CmdObject cmdObject = systemCmdMap.get(cmd);
-        if (cmdObject == null) {
-            log.error("未知的cmd : " + cmd);
-        }
+    public static boolean isSystemCmd(int cmd) {
+        return cmd >= CmdLimit.SystemBeginCmd_VALUE && cmd <= CmdLimit.SystemEndCmd_VALUE;
     }
 
-    protected void gatewayHandler(int cmd, byte[] data) {
-        CmdObject cmdObject = gatewayCmdMap.get(cmd);
-        if (cmdObject == null) {
-            log.error("未知的cmd : " + cmd);
-        }
+    public static boolean isGatewayCmd(int cmd) {
+        return cmd >= CmdLimit.GatewayBeginCmd_VALUE && cmd <= CmdLimit.GatewayEndCmd_VALUE;
     }
 
-    protected void hallHandler(int cmd, byte[] data) {
-        CmdObject cmdObject = hallCmdMap.get(cmd);
-        if (cmdObject == null) {
-            log.error("未知的cmd : " + cmd);
-        }
+    public static boolean isHallCmd(int cmd) {
+        return cmd >= CmdLimit.HallBeginCmd_VALUE && cmd <= CmdLimit.HallEndCmd_VALUE;
     }
 
-    protected void gameHandler(int cmd, byte[] data) {
-
+    public static boolean isGameCmd(int cmd) {
+        return cmd >= CmdLimit.GameBeginCmd_VALUE && cmd <= CmdLimit.GameEndCmd_VALUE;
     }
+
+    protected abstract void systemHandler(Session session, int cmd, byte[] data);
+
+    protected abstract void gatewayHandler(Session session, int cmd, byte[] data);
+
+    protected abstract void hallHandler(Session session, int cmd, byte[] data);
+
+    protected abstract void gameHandler(Session session, int cmd, byte[] data);
 
     private void init() {
         DefaultPackageScanClassResolver classResolver = new DefaultPackageScanClassResolver();
@@ -99,86 +93,13 @@ public abstract class CmdDispatcher {
                         hallCmdMap.put(hallCmd.cmd(), new CmdObject(hallCmd.cmd(), obj, method, hallCmd.protoClazz()));
                     }
                 } catch (InstantiationException e) {
-                    e.printStackTrace();
+                    log.info("", e);
                 } catch (IllegalAccessException e) {
-                    e.printStackTrace();
+                    log.info("", e);
                 } catch (InvocationTargetException e) {
-                    e.printStackTrace();
+                    log.info("", e);
                 }
             });
         });
-    }
-
-    private static class CmdObject {
-        private int cmd;
-        private Object object;
-        private Method method;
-        private Class<? extends GeneratedMessageV3> protoClazz;
-
-        public CmdObject(int cmd, Object object, Method method, Class<? extends GeneratedMessageV3> protoClazz) {
-            this.cmd = cmd;
-            this.object = object;
-            this.method = method;
-            this.protoClazz = protoClazz;
-        }
-
-        public int getCmd() {
-            return cmd;
-        }
-
-        public Object getObject() {
-            return object;
-        }
-
-        public Method getMethod() {
-            return method;
-        }
-
-        public Class<? extends GeneratedMessageV3> getProtoClazz() {
-            return protoClazz;
-        }
-
-        @Override
-        public boolean equals(Object object1) {
-            if (this == object1) return true;
-            if (object1 == null || getClass() != object1.getClass()) return false;
-            CmdObject cmdObject = (CmdObject) object1;
-            return Objects.equals(cmd, cmdObject.cmd) &&
-                    Objects.equals(object, cmdObject.object) &&
-                    Objects.equals(method, cmdObject.method);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(cmd, object, method);
-        }
-
-        @Override
-        public String toString() {
-            return "CmdObject{" +
-                    "cmd='" + cmd + '\'' +
-                    ", object=" + object +
-                    ", method=" + method +
-                    '}';
-        }
-
-        public Object invoke(Map<String, Object> namedParamMap, Map<Class<?>, Object> typeParamMap) throws InvocationTargetException, IllegalAccessException {
-            Set<Class<?>> typeSet = typeParamMap.keySet();
-            Parameter[] parameters = method.getParameters();
-            Object[] paramObjects = new Object[parameters.length];
-            for (int i = 0; i < parameters.length; i++) {
-                Parameter parameter = parameters[i];
-                if (typeSet.contains(parameter.getType())) {
-                    paramObjects[i] = typeParamMap.get(parameter.getType());
-                    continue;
-                }
-                String name = parameter.getAnnotation(CmdParam.class) != null
-                        ? parameter.getAnnotation(CmdParam.class).value()
-                        : parameter.getName();
-                paramObjects[i] = namedParamMap.get(name);
-            }
-            return method.invoke(this.getObject(), paramObjects);
-        }
-
     }
 }

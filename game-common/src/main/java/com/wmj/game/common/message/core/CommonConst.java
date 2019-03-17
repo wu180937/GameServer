@@ -25,7 +25,7 @@ public final class CommonConst {
     java.lang.String[] descriptorData = {
       "\n\021CommonConst.proto*\260\001\n\010CmdLimit\022\010\n\004Zero" +
       "\020\000\022\022\n\016SystemBeginCmd\020\001\022\021\n\014SystemEndCmd\020\210" +
-      "\'\022\024\n\017GateWayBeginCmd\020\211\'\022\022\n\rGateWayEndCmd" +
+      "\'\022\024\n\017GatewayBeginCmd\020\211\'\022\022\n\rGatewayEndCmd" +
       "\020\220N\022\021\n\014HallBeginCmd\020\221N\022\020\n\nHallEndCmd\020\240\234\001" +
       "\022\022\n\014GameBeginCmd\020\241\234\001\022\020\n\nGameEndCmd\020\240\215\006*\225" +
       "\001\n\003Cmd\022\n\n\006UnKnow\020\000\022\030\n\023ChangeRoleServerRe" +

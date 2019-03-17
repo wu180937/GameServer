@@ -31,7 +31,6 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
 
             @Override
             public void onCompleted() {
-                responseObserver.onCompleted();
             }
         };
     }

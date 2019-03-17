@@ -1,5 +1,8 @@
 package com.wmj.game.engine.webSocket;
 
+import com.wmj.game.engine.dispatcher.CmdDispatcher;
+import com.wmj.game.engine.manage.Session;
+import com.wmj.game.engine.manage.WebSocketSessionManage;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -19,7 +22,13 @@ import java.util.Locale;
  */
 public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
     private final static Logger log = LoggerFactory.getLogger(WebSocketFrameHandler.class);
+    private CmdDispatcher cmdDispatcher;
+    private WebSocketSessionManage webSocketSessionManage;
 
+    public WebSocketFrameHandler(CmdDispatcher cmdDispatcher) {
+        this.cmdDispatcher = cmdDispatcher;
+        this.webSocketSessionManage = new WebSocketSessionManage();
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, WebSocketFrame webSocketFrame) {
@@ -39,7 +48,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
                 dataBytes = new byte[length];
                 byteBuf.getBytes(byteBuf.readerIndex(), dataBytes);
             }
-            System.err.println(Arrays.toString(dataBytes));
+            Session session = webSocketSessionManage.getByChannel(ctx.channel());
+            this.cmdDispatcher.dispatcher(session, cmd, dataBytes);
         } else if (webSocketFrame instanceof TextWebSocketFrame) {
             log.info("TextWebSocketFrame不处理");
         } else {
@@ -50,11 +60,13 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
         super.channelRegistered(ctx);
+        this.webSocketSessionManage.add(ctx.channel());
     }
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
         super.channelUnregistered(ctx);
+        this.webSocketSessionManage.remove(ctx.channel());
     }
 
     @Override

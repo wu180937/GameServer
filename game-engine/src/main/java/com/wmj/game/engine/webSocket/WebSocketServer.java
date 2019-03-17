@@ -1,5 +1,6 @@
 package com.wmj.game.engine.webSocket;
 
+import com.wmj.game.engine.dispatcher.CmdDispatcher;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -23,12 +24,14 @@ public class WebSocketServer implements Runnable {
     private int port;
     private boolean ssl;
     private String serviceName;
+    private CmdDispatcher cmdDispatcher;
 
-    public WebSocketServer(String serviceName, String host, int port, boolean ssl) {
+    public WebSocketServer(String serviceName, String host, int port, boolean ssl, CmdDispatcher cmdDispatcher) {
         this.serviceName = serviceName;
         this.host = host;
         this.port = port;
         this.ssl = ssl;
+        this.cmdDispatcher = cmdDispatcher;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class WebSocketServer implements Runnable {
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
-                    .childHandler(new WebSocketServerInitializer(sslCtx))
+                    .childHandler(new WebSocketServerInitializer(sslCtx, this.cmdDispatcher))
                     .option(ChannelOption.SO_BACKLOG, 128)
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
             ChannelFuture f = b.bind(host, port).sync();

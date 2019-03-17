@@ -1,5 +1,6 @@
 package com.wmj.game.engine.webSocket;
 
+import com.wmj.game.engine.dispatcher.CmdDispatcher;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -19,9 +20,11 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
 public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
     private static final String WEBSOCKET_PATH = "/websocket";
     private final SslContext sslCtx;
+    private CmdDispatcher cmdDispatcher;
 
-    public WebSocketServerInitializer(SslContext sslCtx) {
+    public WebSocketServerInitializer(SslContext sslCtx, CmdDispatcher cmdDispatcher) {
         this.sslCtx = sslCtx;
+        this.cmdDispatcher = cmdDispatcher;
     }
 
     @Override
@@ -35,7 +38,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel
         pipeline.addLast(new WebSocketServerCompressionHandler());
         pipeline.addLast(new IdleStateHandler(10, 0, 0));
         pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH, null, true));
-        pipeline.addLast(new WebSocketIndexPageHandler(WEBSOCKET_PATH));
-        pipeline.addLast(new WebSocketFrameHandler());
+//        pipeline.addLast(new WebSocketIndexPageHandler(WEBSOCKET_PATH));
+        pipeline.addLast(new WebSocketFrameHandler(this.cmdDispatcher));
     }
 }

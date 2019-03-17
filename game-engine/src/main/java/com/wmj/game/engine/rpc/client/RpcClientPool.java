@@ -1,30 +1,53 @@
 package com.wmj.game.engine.rpc.client;
 
+import com.orbitz.consul.Consul;
 import com.orbitz.consul.model.health.Service;
 import com.orbitz.consul.model.health.ServiceHealth;
+import com.wmj.game.common.service.ServiceName;
+import com.wmj.game.common.service.ServiceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 
 public class RpcClientPool {
     private final static Logger log = LoggerFactory.getLogger(RpcClientPool.class);
+    private final static int refreshTimeSec = 10;
     private final String poolName;
     private final AtomicInteger loadBalancingCounter;
     private final List<RpcClient> rpcClients;
     private final ReentrantReadWriteLock readWriteLock;
+    private Future<?> refreshFuture = null;
+    private boolean destroy = false;
 
-    public RpcClientPool(String poolName) {
+    private RpcClientPool(String poolName) {
         this.poolName = poolName;
         this.readWriteLock = new ReentrantReadWriteLock();
         this.loadBalancingCounter = new AtomicInteger(0);
         this.rpcClients = new ArrayList<>();
     }
 
-    public void refresh(List<ServiceHealth> serviceHealths) {
+    public static RpcClientPool create(ServiceName serviceName, Consul consulClient, ScheduledExecutorService executorService) {
+        RpcClientPool pool = new RpcClientPool(serviceName.getName() + "-pool");
+        pool.refreshFuture = executorService.scheduleWithFixedDelay(() -> {
+                    List<ServiceHealth> serviceHealths = consulClient.healthClient()
+                            .getHealthyServiceInstances(ServiceType.Rpc.generateServiceName(serviceName)).getResponse();
+                    pool.refresh(serviceHealths);
+                }
+                , 0, refreshTimeSec, TimeUnit.SECONDS);
+        return pool;
+    }
+
+    private void refresh(List<ServiceHealth> serviceHealths) {
+        if (destroy) {
+            return;
+        }
         List<RpcClient> addList = new ArrayList<>();
         List<RpcClient> removeList = new ArrayList<>();
         this.readWriteLock.readLock().lock();
@@ -71,6 +94,9 @@ public class RpcClientPool {
 
 
     public RpcClient getRpcClient() {
+        if (this.destroy) {
+            return null;
+        }
         this.readWriteLock.readLock().lock();
         try {
             return this.rpcClients.get(Math.abs(this.loadBalancingCounter.getAndIncrement() % this.rpcClients.size()));
@@ -79,4 +105,9 @@ public class RpcClientPool {
         }
     }
 
+    public void destroy() {
+        this.destroy = true;
+        this.refreshFuture.cancel(false);
+        this.rpcClients.stream().forEach(RpcClient::close);
+    }
 }

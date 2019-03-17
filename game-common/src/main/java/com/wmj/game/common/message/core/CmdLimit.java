@@ -28,13 +28,13 @@ public enum CmdLimit
    */
   SystemEndCmd(5000),
   /**
-   * <code>GateWayBeginCmd = 5001;</code>
+   * <code>GatewayBeginCmd = 5001;</code>
    */
-  GateWayBeginCmd(5001),
+  GatewayBeginCmd(5001),
   /**
-   * <code>GateWayEndCmd = 10000;</code>
+   * <code>GatewayEndCmd = 10000;</code>
    */
-  GateWayEndCmd(10000),
+  GatewayEndCmd(10000),
   /**
    * <code>HallBeginCmd = 10001;</code>
    */
@@ -67,13 +67,13 @@ public enum CmdLimit
    */
   public static final int SystemEndCmd_VALUE = 5000;
   /**
-   * <code>GateWayBeginCmd = 5001;</code>
+   * <code>GatewayBeginCmd = 5001;</code>
    */
-  public static final int GateWayBeginCmd_VALUE = 5001;
+  public static final int GatewayBeginCmd_VALUE = 5001;
   /**
-   * <code>GateWayEndCmd = 10000;</code>
+   * <code>GatewayEndCmd = 10000;</code>
    */
-  public static final int GateWayEndCmd_VALUE = 10000;
+  public static final int GatewayEndCmd_VALUE = 10000;
   /**
    * <code>HallBeginCmd = 10001;</code>
    */
@@ -113,8 +113,8 @@ public enum CmdLimit
       case 0: return Zero;
       case 1: return SystemBeginCmd;
       case 5000: return SystemEndCmd;
-      case 5001: return GateWayBeginCmd;
-      case 10000: return GateWayEndCmd;
+      case 5001: return GatewayBeginCmd;
+      case 10000: return GatewayEndCmd;
       case 10001: return HallBeginCmd;
       case 20000: return HallEndCmd;
       case 20001: return GameBeginCmd;

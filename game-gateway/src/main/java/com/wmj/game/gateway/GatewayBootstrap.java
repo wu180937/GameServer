@@ -3,6 +3,7 @@ package com.wmj.game.gateway;
 
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.engine.GameServer;
+import com.wmj.game.engine.rpc.server.RpcServerParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,10 +17,10 @@ public class GatewayBootstrap {
 
     public static void main(String[] args) {
         GameServer gameServer = GameServer.getInstance();
-        gameServer.init(ServiceName.GATEWAY, "127.0.0.1", 8500);
-        gameServer.startRpcServer("127.0.0.1", 10001);
+        gameServer.start(ServiceName.GATEWAY, "127.0.0.1", 8500);
+        gameServer.startRpcServer(new RpcServerParam(ServiceName.GATEWAY, "127.0.0.1", 10001));
         gameServer.startRpcClient(ServiceName.HALL);
-        gameServer.startWebSocketServer("127.0.0.1", 10000, false);
+        gameServer.startGatewayServer("127.0.0.1", 10000, false);
         log.info("Gateway started.");
     }
 }
