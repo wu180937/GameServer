@@ -1,18 +1,18 @@
 package com.wmj.game.engine.dispatcher;
 
 import com.google.protobuf.GeneratedMessageV3;
-import com.wmj.game.engine.annotation.CmdParam;
+import com.wmj.game.common.message.core.GatewayMessage;
 import com.wmj.game.engine.manage.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 public class CmdObject {
+    private final static Logger log = LoggerFactory.getLogger(CmdObject.class);
     private int cmd;
     private Object object;
     private Method method;
@@ -67,32 +67,25 @@ public class CmdObject {
                 '}';
     }
 
-    public void invoke(Session session, byte[] data) throws InvocationTargetException, IllegalAccessException {
+    public void invoke(Session session, byte[] data) {
         try {
             Method protoMethod = this.protoClazz.getMethod("parseFrom", byte[].class);
-            Object dataObject = method.invoke(null, data);
+            Object dataObject = protoMethod.invoke(null, data);
             Parameter[] parameters = method.getParameters();
             Object[] paramObjects = new Object[parameters.length];
-            Arrays.stream(parameters).forEach(parameter -> {
-
-            });
+            for (int i = 0; i < parameters.length; i++) {
+                if (Session.class.isAssignableFrom(session.getClass())) {
+                    paramObjects[i] = session;
+                } else if (GeneratedMessageV3.class.isAssignableFrom(GatewayMessage.PingReq.class)) {
+                    paramObjects[i] = dataObject;
+                } else {
+                    paramObjects[i] = null;
+                }
+            }
             method.invoke(this.getObject(), paramObjects);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            log.error("CmdObject error!", e);
         }
-//        Set<Class<?>> typeSet = typeParamMap.keySet();
-//        Parameter[] parameters = method.getParameters();
-//        Object[] paramObjects = new Object[parameters.length];
-//        for (int i = 0; i < parameters.length; i++) {
-//            Parameter parameter = parameters[i];
-//            if (typeSet.contains(parameter.getType())) {
-//                paramObjects[i] = typeParamMap.get(parameter.getType());
-//                continue;
-//            }
-//            String name = parameter.getAnnotation(CmdParam.class) != null
-//                    ? parameter.getAnnotation(CmdParam.class).value()
-//                    : parameter.getName();
-//            paramObjects[i] = namedParamMap.get(name);     }
     }
 
 }

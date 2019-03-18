@@ -11,4 +11,8 @@ public interface Session {
     long getSessionId();
 
     void close();
+
+    void putAttribute(String key, Object value);
+
+    <T> T getAttribute(String key, Class<T> clazz);
 }
