@@ -44,6 +44,7 @@ public class WebSocketSession implements Session {
         if (this.channel.isActive()) {
             this.channel.close();
         }
+        this.attributeMap.clear();
         close = true;
     }
 

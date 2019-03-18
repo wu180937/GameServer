@@ -2,6 +2,7 @@ package com.wmj.game.engine.rpc.client;
 
 import com.wmj.game.engine.rpc.proto.GameRpc;
 import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
+import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 
@@ -18,6 +19,7 @@ public class RpcClient {
     private String serviceId;
     private String host;
     private int port;
+    private ManagedChannel managedChannel;
     private StreamObserver<GameRpc.Request> requestStream;
     private StreamObserver<GameRpc.Response> responseStream;
 
@@ -25,11 +27,13 @@ public class RpcClient {
         this.serviceId = serviceId;
         this.host = host;
         this.port = port;
-        this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder
+        this.managedChannel = ManagedChannelBuilder
                 .forAddress(this.host, this.port).usePlaintext()
                 .keepAliveTime(10, TimeUnit.SECONDS)
                 .keepAliveTimeout(5, TimeUnit.SECONDS)
-                .build());
+                .enableRetry()
+                .build();
+        this.gameServiceStub = GameServiceGrpc.newStub(managedChannel);
         this.responseStream = new RpcClientResponseImpl();
         this.requestStream = this.gameServiceStub.handle(this.responseStream);
     }

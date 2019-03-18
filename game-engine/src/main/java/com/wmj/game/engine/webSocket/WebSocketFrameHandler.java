@@ -1,5 +1,6 @@
 package com.wmj.game.engine.webSocket;
 
+import com.wmj.game.common.message.core.Cmd;
 import com.wmj.game.engine.dispatcher.CmdDispatcher;
 import com.wmj.game.engine.manage.Session;
 import com.wmj.game.engine.manage.WebSocketSessionManage;
@@ -35,11 +36,7 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
         if (webSocketFrame instanceof BinaryWebSocketFrame) {
             BinaryWebSocketFrame frame = BinaryWebSocketFrame.class.cast(webSocketFrame);
             ByteBuf byteBuf = frame.content();
-            if (byteBuf.capacity() < 4) {
-                return;
-            }
-            int cmd = byteBuf.readInt();
-            byteBuf.resetReaderIndex();
+            System.err.println(byteBuf.capacity());
             byte[] dataBytes;
             if (byteBuf.hasArray()) {
                 dataBytes = byteBuf.array();
@@ -48,6 +45,21 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
                 dataBytes = new byte[length];
                 byteBuf.getBytes(byteBuf.readerIndex(), dataBytes);
             }
+            System.err.println(Arrays.toString(dataBytes));
+            if (byteBuf.capacity() < 4) {
+                return;
+            }
+            int cmd = byteBuf.readInt();
+            System.err.println("cmd : " + cmd);
+//            byteBuf.resetReaderIndex();
+//            byte[] dataBytes;
+//            if (byteBuf.hasArray()) {
+//                dataBytes = byteBuf.array();
+//            } else {
+//                int length = byteBuf.readableBytes();
+//                dataBytes = new byte[length];
+//                byteBuf.getBytes(byteBuf.readerIndex(), dataBytes);
+//            }
             Session session = webSocketSessionManage.getByChannel(ctx.channel());
             this.cmdDispatcher.dispatcher(session, cmd, dataBytes);
         } else if (webSocketFrame instanceof TextWebSocketFrame) {
