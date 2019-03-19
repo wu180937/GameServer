@@ -1,22 +1,13 @@
-package com.wmj.game.gateway.test;
+package com.wmj.game.common.util;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-import com.wmj.game.common.message.core.Cmd;
-import com.wmj.game.common.message.core.GatewayMessage;
+/**
+ * @Auther: wumingjie
+ * @Date: 2019/3/19
+ * @Description:
+ */
+public final class VarintUtil {
 
-import java.util.Arrays;
-
-public class TestCounter {
-    public static void main(String[] args) throws InvalidProtocolBufferException {
-        GatewayMessage.PingReq pingReq = GatewayMessage.PingReq.newBuilder().setCmd(Cmd.Ping).build();
-        System.err.println(Arrays.toString(pingReq.toByteArray()));
-        GatewayMessage.PongRes pongRes = GatewayMessage.PongRes.newBuilder().setCmd(Cmd.Pong).setSystemTime(System.currentTimeMillis()).build();
-        System.err.println(Arrays.toString(pongRes.toByteArray()));
-        byte[] src = pingReq.toByteArray();
-        System.err.println(test(1, src));
-    }
-
-    public static int test(int pos, byte[] data) {
+    public static int rawVarint32(byte[] data, int pos) {
         fastPath:
         {
             int tempPos = pos;

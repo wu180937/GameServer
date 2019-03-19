@@ -1,6 +1,6 @@
 package com.wmj.game.engine.webSocket;
 
-import com.wmj.game.common.message.core.Cmd;
+import com.wmj.game.common.util.VarintUtil;
 import com.wmj.game.engine.dispatcher.CmdDispatcher;
 import com.wmj.game.engine.manage.Session;
 import com.wmj.game.engine.manage.WebSocketSessionManage;
@@ -12,9 +12,6 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * @Auther: wumingjie
@@ -36,7 +33,13 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
         if (webSocketFrame instanceof BinaryWebSocketFrame) {
             BinaryWebSocketFrame frame = BinaryWebSocketFrame.class.cast(webSocketFrame);
             ByteBuf byteBuf = frame.content();
-            System.err.println(byteBuf.capacity());
+            if (byteBuf.capacity() < 2) {
+                return;
+            }
+            Session session = webSocketSessionManage.getByChannel(ctx.channel());
+            if (session == null) {
+                return;
+            }
             byte[] dataBytes;
             if (byteBuf.hasArray()) {
                 dataBytes = byteBuf.array();
@@ -45,22 +48,8 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocket
                 dataBytes = new byte[length];
                 byteBuf.getBytes(byteBuf.readerIndex(), dataBytes);
             }
-            System.err.println(Arrays.toString(dataBytes));
-            if (byteBuf.capacity() < 4) {
-                return;
-            }
-            int cmd = byteBuf.readInt();
-            System.err.println("cmd : " + cmd);
-//            byteBuf.resetReaderIndex();
-//            byte[] dataBytes;
-//            if (byteBuf.hasArray()) {
-//                dataBytes = byteBuf.array();
-//            } else {
-//                int length = byteBuf.readableBytes();
-//                dataBytes = new byte[length];
-//                byteBuf.getBytes(byteBuf.readerIndex(), dataBytes);
-//            }
-            Session session = webSocketSessionManage.getByChannel(ctx.channel());
+            int cmd = VarintUtil.rawVarint32(dataBytes, 1);
+            log.debug("收到cmd" + cmd + "数据包");
             this.cmdDispatcher.dispatcher(session, cmd, dataBytes);
         } else if (webSocketFrame instanceof TextWebSocketFrame) {
             log.info("TextWebSocketFrame不处理");

@@ -74,9 +74,9 @@ public class CmdObject {
             Parameter[] parameters = method.getParameters();
             Object[] paramObjects = new Object[parameters.length];
             for (int i = 0; i < parameters.length; i++) {
-                if (Session.class.isAssignableFrom(session.getClass())) {
+                if (Session.class.isAssignableFrom(parameters[i].getType())) {
                     paramObjects[i] = session;
-                } else if (GeneratedMessageV3.class.isAssignableFrom(GatewayMessage.PingReq.class)) {
+                } else if (GeneratedMessageV3.class.isAssignableFrom(parameters[i].getType())) {
                     paramObjects[i] = dataObject;
                 } else {
                     paramObjects[i] = null;

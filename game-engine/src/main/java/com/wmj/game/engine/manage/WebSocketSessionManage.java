@@ -14,7 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @Description:
  */
 public class WebSocketSessionManage {
-    private final static AtomicLong SESSION_ID_COUNTER = new AtomicLong();
+    private final static AtomicLong SESSION_ID_COUNTER = new AtomicLong(0);
     private final ReadWriteLock readWriteLock;
     private final HashMap<Long, Session> sessionHashMap;
     private final HashMap<String, Long> channelId2SessionIdMap;
@@ -54,7 +54,10 @@ public class WebSocketSessionManage {
         Lock lock = this.readWriteLock.writeLock();
         lock.lock();
         try {
-
+            long id = SESSION_ID_COUNTER.incrementAndGet();
+            Session session = new WebSocketSession(id, channel);
+            this.sessionHashMap.put(id, session);
+            this.channelId2SessionIdMap.put(channel.id().asLongText(), id);
         } finally {
             lock.unlock();
         }
@@ -64,7 +67,13 @@ public class WebSocketSessionManage {
         Lock lock = this.readWriteLock.writeLock();
         lock.lock();
         try {
-
+            String channelId = channel.id().asLongText();
+            Long sessionId = this.channelId2SessionIdMap.get(channelId);
+            if (sessionId == null) {
+                return;
+            }
+            this.sessionHashMap.remove(sessionId);
+            this.channelId2SessionIdMap.remove(channelId);
         } finally {
             lock.unlock();
         }

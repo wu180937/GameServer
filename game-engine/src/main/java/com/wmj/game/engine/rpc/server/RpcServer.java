@@ -24,7 +24,7 @@ public class RpcServer implements Runnable {
     @Override
     public void run() {
         final Server server = NettyServerBuilder.forAddress(new InetSocketAddress(host, port))
-                .addService(new RpcGameServiceImpl().bindService())
+                .addService(new RpcGameServiceImpl(serviceName).bindService())
                 .permitKeepAliveTime(10, TimeUnit.SECONDS)
                 .build();
         try {

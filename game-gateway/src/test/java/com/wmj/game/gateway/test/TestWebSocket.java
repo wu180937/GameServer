@@ -1,5 +1,6 @@
 package com.wmj.game.gateway.test;
 
+import com.google.protobuf.Descriptors;
 import com.wmj.game.common.message.core.Cmd;
 import com.wmj.game.common.message.core.GatewayMessage;
 import io.netty.buffer.Unpooled;
@@ -9,6 +10,7 @@ import okio.ByteString;
 
 import javax.annotation.Nullable;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -26,10 +28,10 @@ public class TestWebSocket {
             @Override
             public void onOpen(WebSocket webSocket, Response response) {
                 System.err.println("连接上了");
-//                Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
-                byte[] data = GatewayMessage.PingReq.newBuilder().setCmd(Cmd.LoginRes).build().toByteArray();
-                webSocket.send(ByteString.of(data));
-//                }, 0, 5, TimeUnit.SECONDS);
+                Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
+                    byte[] data = GatewayMessage.PingReq.newBuilder().setCmd(Cmd.Ping).build().toByteArray();
+                    webSocket.send(ByteString.of(data));
+                }, 0, 5, TimeUnit.SECONDS);
             }
 
             @Override

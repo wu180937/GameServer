@@ -17,7 +17,7 @@ public class ProtoTest {
     public static void main(String[] args) throws InvalidProtocolBufferException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         byte[] ping = GatewayMessage.PingReq.newBuilder().setCmd(Cmd.UnKnow).build().toByteArray();
         System.err.println(Arrays.toString(ping));
-        System.err.println(GatewayMessage.PingReq.parseFrom(ping).getCmd().getNumber());
+        System.err.println(GatewayMessage.PingReq.parseFrom(ping).getCmd());
         long time = System.currentTimeMillis();
         byte[] pong = GatewayMessage.PongRes.newBuilder().setCmd(Cmd.Pong).setSystemTime(time).build().toByteArray();
         System.err.println(Arrays.toString(pong));

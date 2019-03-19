@@ -15,4 +15,6 @@ public interface Session {
     void putAttribute(String key, Object value);
 
     <T> T getAttribute(String key, Class<T> clazz);
+
+    void removeAttribute(String key);
 }

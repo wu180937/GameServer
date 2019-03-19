@@ -1,36 +1,32 @@
 package com.wmj.game.engine.manage;
 
-import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
-import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
+import com.google.common.primitives.Bytes;
+import com.google.protobuf.ByteString;
+import com.wmj.game.engine.rpc.proto.GameRpc;
+import io.grpc.stub.StreamObserver;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author: wumj
- * @Date: 2019/3/16 17:59
+ * @Auther: wumingjie
+ * @Date: 2019/3/19
  * @Description:
  */
-public class WebSocketSession implements Session {
+public class RpcSession implements Session {
     private long sessionId;
-    private Channel channel;
-    private boolean close = false;
+    private StreamObserver<GameRpc.Response> responseObserver;
     private Map<String, Object> attributeMap;
 
-    public WebSocketSession(long sessionId, Channel channel) {
+    public RpcSession(long sessionId, StreamObserver<GameRpc.Response> responseObserver) {
         this.sessionId = sessionId;
-        this.channel = channel;
+        this.responseObserver = responseObserver;
         this.attributeMap = new HashMap<>();
     }
 
     @Override
     public void send(byte[] data) {
-        if (close) {
-            return;
-        }
-        BinaryWebSocketFrame frame = new BinaryWebSocketFrame(Unpooled.copiedBuffer(data));
-        this.channel.writeAndFlush(frame);
+        this.responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(this.sessionId).setData(ByteString.copyFrom(data)).build());
     }
 
     @Override
@@ -39,15 +35,8 @@ public class WebSocketSession implements Session {
     }
 
     @Override
-    public synchronized void close() {
-        if (close) {
-            return;
-        }
-        if (this.channel.isActive()) {
-            this.channel.close();
-        }
-        this.attributeMap.clear();
-        close = true;
+    public void close() {
+        this.responseObserver = null;
     }
 
     @Override

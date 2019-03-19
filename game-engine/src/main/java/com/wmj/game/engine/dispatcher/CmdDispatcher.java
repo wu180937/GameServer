@@ -71,7 +71,7 @@ public abstract class CmdDispatcher {
         DefaultPackageScanClassResolver classResolver = new DefaultPackageScanClassResolver();
         classResolver.addClassLoader(Thread.currentThread().getContextClassLoader());
         Set<Class<?>> clazzSet = classResolver.findByFilter(
-                c -> c.isAnnotationPresent(CmdBean.class) && !(c.isAnnotation() || c.isEnum() || c.isInterface() || c.isPrimitive()),
+                c -> c.isAnnotationPresent(CmdSingletonBean.class) && !(c.isAnnotation() || c.isEnum() || c.isInterface() || c.isPrimitive()),
                 SCAN_PACKAGE_NAME);
         clazzSet.stream().forEach(clazz -> {
             Arrays.stream(clazz.getMethods()).forEach(method -> {

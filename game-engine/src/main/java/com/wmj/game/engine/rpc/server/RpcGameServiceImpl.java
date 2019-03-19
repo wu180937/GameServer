@@ -13,6 +13,11 @@ import org.slf4j.LoggerFactory;
  */
 public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     private final static Logger log = LoggerFactory.getLogger(RpcGameServiceImpl.class);
+    private String serviceName;
+
+    public RpcGameServiceImpl(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
     @Override
     public StreamObserver<GameRpc.Request> handle(StreamObserver<GameRpc.Response> responseObserver) {
@@ -20,13 +25,14 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
             @Override
             public void onNext(GameRpc.Request request) {
                 long sessionId = request.getSessionId();
-                log.info("" + sessionId);
+                log.info(this.hashCode() + " " + sessionId);
 //                responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(sessionId).build());
             }
 
             @Override
             public void onError(Throwable throwable) {
                 log.warn("调用出错:{}", throwable.getMessage());
+                throwable.printStackTrace();
             }
 
             @Override

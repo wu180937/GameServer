@@ -7,6 +7,7 @@ import io.grpc.stub.StreamObserver;
 
 import java.sql.Time;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,45 +17,47 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestRpcClient {
     public static void main(String[] args) throws InterruptedException {
-        new GameRpcClient().handle();
+        GameServiceGrpc.GameServiceStub gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder
+                .forAddress("127.0.0.1", 10001).usePlaintext()
+                .keepAliveTime(10, TimeUnit.SECONDS)
+                .keepAliveTimeout(5, TimeUnit.SECONDS)
+                .build());
+        StreamObserver<GameRpc.Response> resp = new StreamObserver<GameRpc.Response>() {
+            @Override
+            public void onNext(GameRpc.Response response) {
+                System.err.println("返回sessionId : " + response.getSessionId());
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.err.println("报错");
+                throwable.printStackTrace();
+            }
+
+            @Override
+            public void onCompleted() {
+                System.err.println("完成");
+            }
+        };
+        StreamObserver<GameRpc.Request> request = gameServiceStub.handle(resp);
+        final CountDownLatch latch = new CountDownLatch(1);
+        new GameRpcClient(request).handle(1);
+        new GameRpcClient(request).handle(2);
+        new GameRpcClient(request).handle(3);
+        latch.await();
     }
 
     public static class GameRpcClient {
-        private GameServiceGrpc.GameServiceStub gameServiceStub;
-        final CountDownLatch latch = new CountDownLatch(1);
+        private StreamObserver<GameRpc.Request> request;
 
-        public GameRpcClient() {
-            this.gameServiceStub = GameServiceGrpc.newStub(ManagedChannelBuilder
-                    .forAddress("192.168.1.66", 10087).usePlaintext()
-                    .keepAliveTime(10, TimeUnit.SECONDS)
-                    .keepAliveTimeout(5, TimeUnit.SECONDS)
-                    .build());
+        public GameRpcClient(StreamObserver<GameRpc.Request> request) {
+            this.request = request;
         }
 
-        public void handle() throws InterruptedException {
-            StreamObserver<GameRpc.Response> resp = new StreamObserver<GameRpc.Response>() {
-                @Override
-                public void onNext(GameRpc.Response response) {
-                    System.err.println("返回sessionId : " + response.getSessionId());
-                    latch.countDown();
-                }
-
-                @Override
-                public void onError(Throwable throwable) {
-                    System.err.println("报错");
-                    throwable.printStackTrace();
-                }
-
-                @Override
-                public void onCompleted() {
-                    System.err.println("完成");
-                }
-            };
-            StreamObserver<GameRpc.Request> request = this.gameServiceStub.handle(resp);
-            for (int i = 0; i < 10000; i++) {
-                request.onNext(GameRpc.Request.newBuilder().setSessionId(i).build());
-            }
-            latch.await();
+        public void handle(long id) throws InterruptedException {
+            Executors.newSingleThreadScheduledExecutor().scheduleWithFixedDelay(() -> {
+                request.onNext(GameRpc.Request.newBuilder().setSessionId(id).build());
+            }, 0, 5, TimeUnit.SECONDS);
         }
     }
 }
