@@ -30,11 +30,16 @@ public class RpcSessionManage {
         } finally {
             lock.unlock();
         }
-
     }
 
     public void add(long sessionId, StreamObserver<GameRpc.Response> responseObserver) {
-
+        Lock lock = this.readWriteLock.writeLock();
+        lock.lock();
+        try {
+            this.sessionHashMap.put(sessionId, new RpcSession(sessionId, responseObserver));
+        } finally {
+            lock.unlock();
+        }
     }
 
     public void remove(long sessionId) {
