@@ -3,6 +3,7 @@ package com.wmj.game.engine.manage;
 import com.wmj.game.engine.rpc.proto.GameRpc;
 import io.grpc.stub.StreamObserver;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -46,9 +47,21 @@ public class RpcSessionManage {
         Lock lock = this.readWriteLock.writeLock();
         lock.lock();
         try {
-            this.sessionHashMap.remove(sessionId);
+            Session session = this.sessionHashMap.remove(sessionId);
+            session.close();
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    public void removeAll(Collection<Long> sessionIds) {
+        Lock lock = this.readWriteLock.writeLock();
+        lock.lock();
+        try {
+            sessionIds.stream().forEach(this.sessionHashMap::remove);
         } finally {
             lock.unlock();
         }
     }
 }
+

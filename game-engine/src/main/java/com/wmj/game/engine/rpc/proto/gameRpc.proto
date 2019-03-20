@@ -4,13 +4,19 @@ option java_package = "com.wmj.game.engine.rpc.proto";
 message Request {
     int64 sessionId = 1;
     bytes data = 2;
+    Behavior behavior = 3;
 }
 
 message Response {
     int64 sessionId = 1;
     bytes data = 2;
+    Behavior behavior = 3;
+    int32 errorCode = 4;
 }
-
+enum Behavior {
+    Handle = 0;
+    Logout = 1;
+}
 service GameService {
     rpc handle (stream Request) returns (stream Response) {
     };

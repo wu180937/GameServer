@@ -14,6 +14,104 @@ public final class GameRpc {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  /**
+   * Protobuf enum {@code Behavior}
+   */
+  public enum Behavior
+      implements com.google.protobuf.ProtocolMessageEnum {
+    /**
+     * <code>Handle = 0;</code>
+     */
+    Handle(0),
+    /**
+     * <code>Logout = 1;</code>
+     */
+    Logout(1),
+    UNRECOGNIZED(-1),
+    ;
+
+    /**
+     * <code>Handle = 0;</code>
+     */
+    public static final int Handle_VALUE = 0;
+    /**
+     * <code>Logout = 1;</code>
+     */
+    public static final int Logout_VALUE = 1;
+
+
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
+
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
+    public static Behavior valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static Behavior forNumber(int value) {
+      switch (value) {
+        case 0: return Handle;
+        case 1: return Logout;
+        default: return null;
+      }
+    }
+
+    public static com.google.protobuf.Internal.EnumLiteMap<Behavior>
+        internalGetValueMap() {
+      return internalValueMap;
+    }
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        Behavior> internalValueMap =
+          new com.google.protobuf.Internal.EnumLiteMap<Behavior>() {
+            public Behavior findValueByNumber(int number) {
+              return Behavior.forNumber(number);
+            }
+          };
+
+    public final com.google.protobuf.Descriptors.EnumValueDescriptor
+        getValueDescriptor() {
+      return getDescriptor().getValues().get(ordinal());
+    }
+    public final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptorForType() {
+      return getDescriptor();
+    }
+    public static final com.google.protobuf.Descriptors.EnumDescriptor
+        getDescriptor() {
+      return com.wmj.game.engine.rpc.proto.GameRpc.getDescriptor().getEnumTypes().get(0);
+    }
+
+    private static final Behavior[] VALUES = values();
+
+    public static Behavior valueOf(
+        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+      if (desc.getType() != getDescriptor()) {
+        throw new java.lang.IllegalArgumentException(
+          "EnumValueDescriptor is not for this type.");
+      }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
+      return VALUES[desc.getIndex()];
+    }
+
+    private final int value;
+
+    private Behavior(int value) {
+      this.value = value;
+    }
+
+    // @@protoc_insertion_point(enum_scope:Behavior)
+  }
+
   public interface RequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:Request)
       com.google.protobuf.MessageOrBuilder {
@@ -27,6 +125,15 @@ public final class GameRpc {
      * <code>bytes data = 2;</code>
      */
     com.google.protobuf.ByteString getData();
+
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    int getBehaviorValue();
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    com.wmj.game.engine.rpc.proto.GameRpc.Behavior getBehavior();
   }
   /**
    * Protobuf type {@code Request}
@@ -43,6 +150,7 @@ public final class GameRpc {
     private Request() {
       sessionId_ = 0L;
       data_ = com.google.protobuf.ByteString.EMPTY;
+      behavior_ = 0;
     }
 
     @java.lang.Override
@@ -77,6 +185,12 @@ public final class GameRpc {
             case 18: {
 
               data_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              behavior_ = rawValue;
               break;
             }
             default: {
@@ -129,6 +243,23 @@ public final class GameRpc {
       return data_;
     }
 
+    public static final int BEHAVIOR_FIELD_NUMBER = 3;
+    private int behavior_;
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    public int getBehaviorValue() {
+      return behavior_;
+    }
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    public com.wmj.game.engine.rpc.proto.GameRpc.Behavior getBehavior() {
+      @SuppressWarnings("deprecation")
+      com.wmj.game.engine.rpc.proto.GameRpc.Behavior result = com.wmj.game.engine.rpc.proto.GameRpc.Behavior.valueOf(behavior_);
+      return result == null ? com.wmj.game.engine.rpc.proto.GameRpc.Behavior.UNRECOGNIZED : result;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -149,6 +280,9 @@ public final class GameRpc {
       if (!data_.isEmpty()) {
         output.writeBytes(2, data_);
       }
+      if (behavior_ != com.wmj.game.engine.rpc.proto.GameRpc.Behavior.Handle.getNumber()) {
+        output.writeEnum(3, behavior_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -165,6 +299,10 @@ public final class GameRpc {
       if (!data_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, data_);
+      }
+      if (behavior_ != com.wmj.game.engine.rpc.proto.GameRpc.Behavior.Handle.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, behavior_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -186,6 +324,7 @@ public final class GameRpc {
           == other.getSessionId());
       result = result && getData()
           .equals(other.getData());
+      result = result && behavior_ == other.behavior_;
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -202,6 +341,8 @@ public final class GameRpc {
           getSessionId());
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + BEHAVIOR_FIELD_NUMBER;
+      hash = (53 * hash) + behavior_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -339,6 +480,8 @@ public final class GameRpc {
 
         data_ = com.google.protobuf.ByteString.EMPTY;
 
+        behavior_ = 0;
+
         return this;
       }
 
@@ -367,6 +510,7 @@ public final class GameRpc {
         com.wmj.game.engine.rpc.proto.GameRpc.Request result = new com.wmj.game.engine.rpc.proto.GameRpc.Request(this);
         result.sessionId_ = sessionId_;
         result.data_ = data_;
+        result.behavior_ = behavior_;
         onBuilt();
         return result;
       }
@@ -420,6 +564,9 @@ public final class GameRpc {
         }
         if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
           setData(other.getData());
+        }
+        if (other.behavior_ != 0) {
+          setBehaviorValue(other.getBehaviorValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -504,6 +651,51 @@ public final class GameRpc {
         onChanged();
         return this;
       }
+
+      private int behavior_ = 0;
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public int getBehaviorValue() {
+        return behavior_;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public Builder setBehaviorValue(int value) {
+        behavior_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public com.wmj.game.engine.rpc.proto.GameRpc.Behavior getBehavior() {
+        @SuppressWarnings("deprecation")
+        com.wmj.game.engine.rpc.proto.GameRpc.Behavior result = com.wmj.game.engine.rpc.proto.GameRpc.Behavior.valueOf(behavior_);
+        return result == null ? com.wmj.game.engine.rpc.proto.GameRpc.Behavior.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public Builder setBehavior(com.wmj.game.engine.rpc.proto.GameRpc.Behavior value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        behavior_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public Builder clearBehavior() {
+        
+        behavior_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -570,6 +762,20 @@ public final class GameRpc {
      * <code>bytes data = 2;</code>
      */
     com.google.protobuf.ByteString getData();
+
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    int getBehaviorValue();
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    com.wmj.game.engine.rpc.proto.GameRpc.Behavior getBehavior();
+
+    /**
+     * <code>int32 errorCode = 4;</code>
+     */
+    int getErrorCode();
   }
   /**
    * Protobuf type {@code Response}
@@ -586,6 +792,8 @@ public final class GameRpc {
     private Response() {
       sessionId_ = 0L;
       data_ = com.google.protobuf.ByteString.EMPTY;
+      behavior_ = 0;
+      errorCode_ = 0;
     }
 
     @java.lang.Override
@@ -620,6 +828,17 @@ public final class GameRpc {
             case 18: {
 
               data_ = input.readBytes();
+              break;
+            }
+            case 24: {
+              int rawValue = input.readEnum();
+
+              behavior_ = rawValue;
+              break;
+            }
+            case 32: {
+
+              errorCode_ = input.readInt32();
               break;
             }
             default: {
@@ -672,6 +891,32 @@ public final class GameRpc {
       return data_;
     }
 
+    public static final int BEHAVIOR_FIELD_NUMBER = 3;
+    private int behavior_;
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    public int getBehaviorValue() {
+      return behavior_;
+    }
+    /**
+     * <code>.Behavior behavior = 3;</code>
+     */
+    public com.wmj.game.engine.rpc.proto.GameRpc.Behavior getBehavior() {
+      @SuppressWarnings("deprecation")
+      com.wmj.game.engine.rpc.proto.GameRpc.Behavior result = com.wmj.game.engine.rpc.proto.GameRpc.Behavior.valueOf(behavior_);
+      return result == null ? com.wmj.game.engine.rpc.proto.GameRpc.Behavior.UNRECOGNIZED : result;
+    }
+
+    public static final int ERRORCODE_FIELD_NUMBER = 4;
+    private int errorCode_;
+    /**
+     * <code>int32 errorCode = 4;</code>
+     */
+    public int getErrorCode() {
+      return errorCode_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -692,6 +937,12 @@ public final class GameRpc {
       if (!data_.isEmpty()) {
         output.writeBytes(2, data_);
       }
+      if (behavior_ != com.wmj.game.engine.rpc.proto.GameRpc.Behavior.Handle.getNumber()) {
+        output.writeEnum(3, behavior_);
+      }
+      if (errorCode_ != 0) {
+        output.writeInt32(4, errorCode_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -708,6 +959,14 @@ public final class GameRpc {
       if (!data_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(2, data_);
+      }
+      if (behavior_ != com.wmj.game.engine.rpc.proto.GameRpc.Behavior.Handle.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, behavior_);
+      }
+      if (errorCode_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, errorCode_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -729,6 +988,9 @@ public final class GameRpc {
           == other.getSessionId());
       result = result && getData()
           .equals(other.getData());
+      result = result && behavior_ == other.behavior_;
+      result = result && (getErrorCode()
+          == other.getErrorCode());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -745,6 +1007,10 @@ public final class GameRpc {
           getSessionId());
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + BEHAVIOR_FIELD_NUMBER;
+      hash = (53 * hash) + behavior_;
+      hash = (37 * hash) + ERRORCODE_FIELD_NUMBER;
+      hash = (53 * hash) + getErrorCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -882,6 +1148,10 @@ public final class GameRpc {
 
         data_ = com.google.protobuf.ByteString.EMPTY;
 
+        behavior_ = 0;
+
+        errorCode_ = 0;
+
         return this;
       }
 
@@ -910,6 +1180,8 @@ public final class GameRpc {
         com.wmj.game.engine.rpc.proto.GameRpc.Response result = new com.wmj.game.engine.rpc.proto.GameRpc.Response(this);
         result.sessionId_ = sessionId_;
         result.data_ = data_;
+        result.behavior_ = behavior_;
+        result.errorCode_ = errorCode_;
         onBuilt();
         return result;
       }
@@ -963,6 +1235,12 @@ public final class GameRpc {
         }
         if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
           setData(other.getData());
+        }
+        if (other.behavior_ != 0) {
+          setBehaviorValue(other.getBehaviorValue());
+        }
+        if (other.getErrorCode() != 0) {
+          setErrorCode(other.getErrorCode());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -1047,6 +1325,77 @@ public final class GameRpc {
         onChanged();
         return this;
       }
+
+      private int behavior_ = 0;
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public int getBehaviorValue() {
+        return behavior_;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public Builder setBehaviorValue(int value) {
+        behavior_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public com.wmj.game.engine.rpc.proto.GameRpc.Behavior getBehavior() {
+        @SuppressWarnings("deprecation")
+        com.wmj.game.engine.rpc.proto.GameRpc.Behavior result = com.wmj.game.engine.rpc.proto.GameRpc.Behavior.valueOf(behavior_);
+        return result == null ? com.wmj.game.engine.rpc.proto.GameRpc.Behavior.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public Builder setBehavior(com.wmj.game.engine.rpc.proto.GameRpc.Behavior value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        behavior_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Behavior behavior = 3;</code>
+       */
+      public Builder clearBehavior() {
+        
+        behavior_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int errorCode_ ;
+      /**
+       * <code>int32 errorCode = 4;</code>
+       */
+      public int getErrorCode() {
+        return errorCode_;
+      }
+      /**
+       * <code>int32 errorCode = 4;</code>
+       */
+      public Builder setErrorCode(int value) {
+        
+        errorCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 errorCode = 4;</code>
+       */
+      public Builder clearErrorCode() {
+        
+        errorCode_ = 0;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1119,11 +1468,14 @@ public final class GameRpc {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rgameRpc.proto\"*\n\007Request\022\021\n\tsessionId\030" +
-      "\001 \001(\003\022\014\n\004data\030\002 \001(\014\"+\n\010Response\022\021\n\tsessi" +
-      "onId\030\001 \001(\003\022\014\n\004data\030\002 \001(\01422\n\013GameService\022" +
-      "#\n\006handle\022\010.Request\032\t.Response\"\000(\0010\001B\037\n\035" +
-      "com.wmj.game.engine.rpc.protob\006proto3"
+      "\n\rgameRpc.proto\"G\n\007Request\022\021\n\tsessionId\030" +
+      "\001 \001(\003\022\014\n\004data\030\002 \001(\014\022\033\n\010behavior\030\003 \001(\0162\t." +
+      "Behavior\"[\n\010Response\022\021\n\tsessionId\030\001 \001(\003\022" +
+      "\014\n\004data\030\002 \001(\014\022\033\n\010behavior\030\003 \001(\0162\t.Behavi" +
+      "or\022\021\n\terrorCode\030\004 \001(\005*\"\n\010Behavior\022\n\n\006Han" +
+      "dle\020\000\022\n\n\006Logout\020\00122\n\013GameService\022#\n\006hand" +
+      "le\022\010.Request\032\t.Response\"\000(\0010\001B\037\n\035com.wmj" +
+      ".game.engine.rpc.protob\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1142,13 +1494,13 @@ public final class GameRpc {
     internal_static_Request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Request_descriptor,
-        new java.lang.String[] { "SessionId", "Data", });
+        new java.lang.String[] { "SessionId", "Data", "Behavior", });
     internal_static_Response_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Response_descriptor,
-        new java.lang.String[] { "SessionId", "Data", });
+        new java.lang.String[] { "SessionId", "Data", "Behavior", "ErrorCode", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

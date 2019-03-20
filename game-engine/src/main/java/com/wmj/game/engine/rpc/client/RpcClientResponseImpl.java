@@ -16,7 +16,6 @@ public class RpcClientResponseImpl implements StreamObserver<GameRpc.Response> {
     @Override
     public void onNext(GameRpc.Response response) {
         long sessionId = response.getSessionId();
-
     }
 
     @Override

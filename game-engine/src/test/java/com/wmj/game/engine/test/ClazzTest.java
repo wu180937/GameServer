@@ -10,6 +10,5 @@ import com.wmj.game.common.message.core.GatewayMessage;
  */
 public class ClazzTest {
     public static void main(String[] args) {
-        System.err.println(GeneratedMessageV3.class.isAssignableFrom(GatewayMessage.PingReq.class));
     }
 }

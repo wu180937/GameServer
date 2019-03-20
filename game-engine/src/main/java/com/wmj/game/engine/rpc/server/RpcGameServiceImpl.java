@@ -1,5 +1,6 @@
 package com.wmj.game.engine.rpc.server;
 
+import com.wmj.game.common.constant.ErrorCode;
 import com.wmj.game.engine.manage.RpcSessionManage;
 import com.wmj.game.engine.manage.Session;
 import com.wmj.game.engine.rpc.proto.GameRpc;
@@ -22,7 +23,6 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     private String serviceName;
     private final RpcSessionManage rpcSessionManage;
     private final Set<Long> sessionIdSet = new HashSet<>();
-    private final ReentrantLock lock = new ReentrantLock();
 
     public RpcGameServiceImpl(String serviceName, RpcSessionManage rpcSessionManage) {
         this.serviceName = serviceName;
@@ -35,28 +35,54 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
             @Override
             public void onNext(GameRpc.Request request) {
                 long sessionId = request.getSessionId();
-                lock.lock();
-                try {
-                    if (!sessionIdSet.contains(sessionId)) {
-
-                    }
-                } finally {
-                    lock.unlock();
-                }
                 log.info(this.hashCode() + " " + sessionId);
-                Session session = rpcSessionManage.getById(sessionId);
-//                responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(sessionId).build());
+                switch (request.getBehavior()) {
+                    case Logout: {
+                        if (!sessionIdSet.contains(sessionId)) {
+                            log.warn("sessionId[" + sessionId + "] already logout.");
+                            GameRpc.Response resp = GameRpc.Response.newBuilder().setSessionId(sessionId)
+                                    .setErrorCode(ErrorCode.AlreadyLogout).setBehavior(GameRpc.Behavior.Logout).build();
+                            return;
+                        }
+                        sessionIdSet.remove(sessionId);
+                        rpcSessionManage.remove(sessionId);
+                        GameRpc.Response resp = GameRpc.Response.newBuilder().setSessionId(sessionId)
+                                .setErrorCode(ErrorCode.Success).setBehavior(GameRpc.Behavior.Logout).build();
+                        responseObserver.onNext(resp);
+                        break;
+                    }
+                    case Handle: {
+                        synchronized (sessionIdSet) {
+                            if (!sessionIdSet.contains(sessionId)) {
+                                sessionIdSet.add(sessionId);
+                                rpcSessionManage.add(sessionId, responseObserver);
+                            }
+                        }
+                        Session session = rpcSessionManage.getById(sessionId);
+                        if (session == null) {
+                            return;
+                        }
+//                        responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(sessionId).build());
+                        break;
+                    }
+                    default:
+                }
             }
 
             @Override
             public void onError(Throwable throwable) {
-                log.warn("调用出错:{}", throwable.getMessage());
-                throwable.printStackTrace();
+                rpcSessionManage.removeAll(sessionIdSet);
+                log.error("调用出错:", throwable);
             }
 
             @Override
             public void onCompleted() {
+                rpcSessionManage.removeAll(sessionIdSet);
             }
         };
+    }
+
+    public String getServiceName() {
+        return serviceName;
     }
 }

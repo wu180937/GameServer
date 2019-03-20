@@ -17,6 +17,7 @@ public class RpcServerCmdDispatcher extends CmdDispatcher {
         if (cmdObject == null) {
             log.error("未知的cmd : " + cmd);
         }
+        cmdObject.invoke(session, data);
     }
 
     @Override
@@ -25,6 +26,7 @@ public class RpcServerCmdDispatcher extends CmdDispatcher {
         if (cmdObject == null) {
             log.error("未知的cmd : " + cmd);
         }
+        cmdObject.invoke(session, data);
     }
 
     @Override
@@ -33,6 +35,7 @@ public class RpcServerCmdDispatcher extends CmdDispatcher {
         if (cmdObject == null) {
             log.error("未知的cmd : " + cmd);
         }
+        cmdObject.invoke(session, data);
     }
 
     @Override

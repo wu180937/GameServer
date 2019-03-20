@@ -1,5 +1,6 @@
 package com.wmj.game.engine.rpc.client;
 
+import com.google.protobuf.ByteString;
 import com.wmj.game.engine.rpc.proto.GameRpc;
 import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
 import io.grpc.ManagedChannel;
@@ -42,9 +43,16 @@ public class RpcClient {
         return serviceId;
     }
 
-    public void send(GameRpc.Request request) {
-        this.requestStream.onNext(request);
+    public void logout(long sessionId) {
+        GameRpc.Request req = GameRpc.Request.newBuilder().setSessionId(sessionId).setBehavior(GameRpc.Behavior.Logout).build();
+        this.requestStream.onNext(req);
     }
+
+    public void send(long sessionId, byte[] data) {
+        GameRpc.Request req = GameRpc.Request.newBuilder().setSessionId(sessionId).setBehavior(GameRpc.Behavior.Handle).setData(ByteString.copyFrom(data)).build();
+        this.requestStream.onNext(req);
+    }
+
 
     public void close() {
         this.responseStream.onCompleted();

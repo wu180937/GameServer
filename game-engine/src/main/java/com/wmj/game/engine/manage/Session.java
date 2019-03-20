@@ -12,6 +12,8 @@ public interface Session {
 
     void close();
 
+    void addCloseHook(Runnable runnable);
+
     void putAttribute(String key, Object value);
 
     <T> T getAttribute(String key, Class<T> clazz);

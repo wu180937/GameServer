@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class WebSocketSessionManage {
     private final static AtomicLong SESSION_ID_COUNTER = new AtomicLong(0);
     private final ReadWriteLock readWriteLock;
-    private final HashMap<Long, Session> sessionHashMap;
+    private final HashMap<Long, WebSocketSession> sessionHashMap;
     private final HashMap<String, Long> channelId2SessionIdMap;
 
     public WebSocketSessionManage() {
@@ -25,7 +25,7 @@ public class WebSocketSessionManage {
         this.channelId2SessionIdMap = new HashMap<>();
     }
 
-    public Session getById(long sessionId) {
+    public WebSocketSession getById(long sessionId) {
         Lock lock = this.readWriteLock.readLock();
         lock.lock();
         try {
@@ -36,7 +36,7 @@ public class WebSocketSessionManage {
 
     }
 
-    public Session getByChannel(Channel channel) {
+    public WebSocketSession getByChannel(Channel channel) {
         Lock lock = this.readWriteLock.readLock();
         lock.lock();
         try {
@@ -55,7 +55,7 @@ public class WebSocketSessionManage {
         lock.lock();
         try {
             long id = SESSION_ID_COUNTER.incrementAndGet();
-            Session session = new WebSocketSession(id, channel);
+            WebSocketSession session = new WebSocketSession(id, channel);
             this.sessionHashMap.put(id, session);
             this.channelId2SessionIdMap.put(channel.id().asLongText(), id);
         } finally {
@@ -72,8 +72,9 @@ public class WebSocketSessionManage {
             if (sessionId == null) {
                 return;
             }
-            this.sessionHashMap.remove(sessionId);
             this.channelId2SessionIdMap.remove(channelId);
+            Session session = this.sessionHashMap.remove(sessionId);
+            session.close();
         } finally {
             lock.unlock();
         }

@@ -1,13 +1,11 @@
 package com.wmj.game.engine.dispatcher;
 
-import com.google.protobuf.ByteString;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.session.SessionKey;
 import com.wmj.game.engine.GameServer;
 import com.wmj.game.engine.manage.Session;
 import com.wmj.game.engine.rpc.client.RpcClient;
 import com.wmj.game.engine.rpc.client.RpcClientPool;
-import com.wmj.game.engine.rpc.proto.GameRpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +48,7 @@ public class GatewayCmdDispatcher extends CmdDispatcher {
                 session.putAttribute(SessionKey.RPC_HALL_CLIENT_KEY, rpcClient);
             }
         }
-        rpcClient.send(GameRpc.Request.newBuilder().setSessionId(session.getSessionId()).setData(ByteString.copyFrom(data)).build());
+        rpcClient.send(session.getSessionId(), data);
     }
 
     @Override
