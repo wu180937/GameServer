@@ -46,6 +46,14 @@ public enum Cmd
   Pong(5002),
   /**
    * <pre>
+   * 重连
+   * </pre>
+   *
+   * <code>Reconnect = 5003;</code>
+   */
+  Reconnect(5003),
+  /**
+   * <pre>
    *大厅
    * </pre>
    *
@@ -117,6 +125,14 @@ public enum Cmd
   public static final int Pong_VALUE = 5002;
   /**
    * <pre>
+   * 重连
+   * </pre>
+   *
+   * <code>Reconnect = 5003;</code>
+   */
+  public static final int Reconnect_VALUE = 5003;
+  /**
+   * <pre>
    *大厅
    * </pre>
    *
@@ -172,6 +188,7 @@ public enum Cmd
       case 1006: return ChangeRoleServerRes;
       case 5001: return Ping;
       case 5002: return Pong;
+      case 5003: return Reconnect;
       case 10001: return LoginReq;
       case 10002: return LoginRes;
       case 10007: return QuitReq;

@@ -1,5 +1,7 @@
 package com.wmj.game.engine.dispatcher;
 
+import com.wmj.game.common.message.core.Cmd;
+import com.wmj.game.common.message.core.GatewayMessage;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.common.session.SessionKey;
 import com.wmj.game.engine.GameServer;
@@ -46,7 +48,13 @@ public class GatewayCmdDispatcher extends CmdDispatcher {
                 }
                 rpcClient = clientPool.getRpcClient();
                 session.putAttribute(SessionKey.RPC_HALL_CLIENT_KEY, rpcClient);
+                rpcClient.addCloseHook(session.getSessionId(), () -> session.close());
             }
+        }
+        if (!rpcClient.isActive()) {
+            GatewayMessage.ReconnectRes reconnectRes = GatewayMessage.ReconnectRes.newBuilder().setCmd(Cmd.Reconnect).build();
+            session.send(reconnectRes.toByteArray());
+            return;
         }
         rpcClient.send(session.getSessionId(), data);
     }

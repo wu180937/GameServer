@@ -40,15 +40,10 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
                     case Logout: {
                         if (!sessionIdSet.contains(sessionId)) {
                             log.warn("sessionId[" + sessionId + "] already logout.");
-                            GameRpc.Response resp = GameRpc.Response.newBuilder().setSessionId(sessionId)
-                                    .setErrorCode(ErrorCode.AlreadyLogout).setBehavior(GameRpc.Behavior.Logout).build();
                             return;
                         }
                         sessionIdSet.remove(sessionId);
                         rpcSessionManage.remove(sessionId);
-                        GameRpc.Response resp = GameRpc.Response.newBuilder().setSessionId(sessionId)
-                                .setErrorCode(ErrorCode.Success).setBehavior(GameRpc.Behavior.Logout).build();
-                        responseObserver.onNext(resp);
                         break;
                     }
                     case Handle: {

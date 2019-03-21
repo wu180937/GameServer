@@ -18,11 +18,10 @@ import java.util.stream.Collectors;
 
 public class RpcClientPool {
     private final static Logger log = LoggerFactory.getLogger(RpcClientPool.class);
-    private final static int refreshTimeSec = 10;
+    private final static int refreshTimeSec = 5;
     private final String poolName;
     private final AtomicInteger loadBalancingCounter;
     private final List<RpcClient> rpcClients;
-    private final List<ServiceInfo> serviceInfos;
     private final ReentrantReadWriteLock readWriteLock;
     private Future<?> refreshFuture = null;
     private boolean destroy = false;
@@ -32,7 +31,6 @@ public class RpcClientPool {
         this.readWriteLock = new ReentrantReadWriteLock();
         this.loadBalancingCounter = new AtomicInteger(0);
         this.rpcClients = new ArrayList<>();
-        this.serviceInfos = new ArrayList<>();
     }
 
     public static RpcClientPool create(ServiceName serviceName, Consul consulClient, ScheduledExecutorService executorService) {
@@ -60,8 +58,6 @@ public class RpcClientPool {
                             serviceHealth.getService().getPort())).collect(Collectors.toList()));
             Set<String> tss = serviceHealths.stream().map(ServiceHealth::getService).map(Service::getId).collect(Collectors.toSet());
             removeList.addAll(rpcClients.stream().filter(client -> !tss.contains(client.getServiceId())).collect(Collectors.toList()));
-            Set<String> hasServiceSet = serviceInfos.stream().map(ServiceInfo::getServiceId).collect(Collectors.toSet());
-
         } finally {
             this.readWriteLock.readLock().unlock();
         }

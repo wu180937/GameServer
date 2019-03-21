@@ -27,6 +27,7 @@ enum Cmd {
     //网关
     Ping = 5001; //ping
     Pong = 5002; //ping返回
+    Reconnect = 5003; // 重连
 
     //大厅
     LoginReq = 10001; //登录

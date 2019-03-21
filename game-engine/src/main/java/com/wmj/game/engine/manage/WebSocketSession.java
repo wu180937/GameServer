@@ -1,10 +1,9 @@
 package com.wmj.game.engine.manage;
 
+import com.wmj.game.engine.rpc.client.RpcClient;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
-
-import java.util.*;
 
 /**
  * @Author: wumj
@@ -42,6 +41,11 @@ public class WebSocketSession extends AbstractSession {
         if (this.channel.isActive()) {
             this.channel.close();
         }
+        this.attributeMap.forEach((k, v) -> {
+            if (v instanceof RpcClient) {
+                RpcClient.class.cast(v).logout(sessionId);
+            }
+        });
         super.close();
     }
 

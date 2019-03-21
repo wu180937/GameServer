@@ -9,7 +9,11 @@ import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -27,6 +31,7 @@ public class RpcClient {
     private StreamObserver<GameRpc.Request> requestStream;
     private StreamObserver<GameRpc.Response> responseStream;
     private boolean active = true;
+    protected ConcurrentHashMap<Long, Runnable> closeRunnableMap = new ConcurrentHashMap<>();
 
     public RpcClient(String serviceId, String host, int port) {
         this.serviceId = serviceId;
@@ -54,6 +59,7 @@ public class RpcClient {
         }
         GameRpc.Request req = GameRpc.Request.newBuilder().setSessionId(sessionId).setBehavior(GameRpc.Behavior.Logout).build();
         this.requestStream.onNext(req);
+        removeCloseHook(sessionId);
     }
 
     public void send(long sessionId, byte[] data) {
@@ -66,8 +72,22 @@ public class RpcClient {
     }
 
 
-    public void close() {
+    public synchronized void close() {
+        if (!isActive()) {
+            return;
+        }
+        active = false;
         this.responseStream.onCompleted();
+        this.closeRunnableMap.values().stream().forEach(Runnable::run);
+        this.closeRunnableMap.clear();
+    }
+
+    public void addCloseHook(long sessionId, Runnable runnable) {
+        this.closeRunnableMap.put(sessionId, runnable);
+    }
+
+    public void removeCloseHook(long sessionId) {
+        this.closeRunnableMap.remove(sessionId);
     }
 
     @Override
@@ -105,12 +125,12 @@ public class RpcClient {
 
         @Override
         public void onError(Throwable throwable) {
-            active = false;
+            close();
         }
 
         @Override
         public void onCompleted() {
-            active = false;
+            close();
         }
     }
 }

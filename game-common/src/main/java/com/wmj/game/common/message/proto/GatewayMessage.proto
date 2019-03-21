@@ -11,3 +11,7 @@ message PongRes {
     int32 errorCode = 2;
     int64 systemTime = 3;
 }
+
+message ReconnectRes {
+    Cmd cmd = 1;
+}

@@ -10,7 +10,7 @@ import java.util.*;
 public abstract class AbstractSession implements Session {
     protected boolean close = false;
     protected Set<Runnable> closeRunnableList = Collections.synchronizedSet(new HashSet<>());
-    private Map<String, Object> attributeMap = new HashMap<>();
+    protected Map<String, Object> attributeMap = new HashMap<>();
 
     @Override
     public void addCloseHook(Runnable runnable) {
