@@ -6,6 +6,8 @@ import com.wmj.game.engine.rpc.proto.GameServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -16,6 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @Description:
  */
 public class RpcClient {
+    private final static Logger log = LoggerFactory.getLogger(RpcClient.class);
     private GameServiceGrpc.GameServiceStub gameServiceStub;
     private String serviceId;
     private String host;
@@ -23,6 +26,7 @@ public class RpcClient {
     private ManagedChannel managedChannel;
     private StreamObserver<GameRpc.Request> requestStream;
     private StreamObserver<GameRpc.Response> responseStream;
+    private boolean active = true;
 
     public RpcClient(String serviceId, String host, int port) {
         this.serviceId = serviceId;
@@ -44,11 +48,19 @@ public class RpcClient {
     }
 
     public void logout(long sessionId) {
+        if (!isActive()) {
+            log.debug("RpcClient[" + this.getServiceId() + "] is not active.");
+            return;
+        }
         GameRpc.Request req = GameRpc.Request.newBuilder().setSessionId(sessionId).setBehavior(GameRpc.Behavior.Logout).build();
         this.requestStream.onNext(req);
     }
 
     public void send(long sessionId, byte[] data) {
+        if (!isActive()) {
+            log.debug("RpcClient[" + this.getServiceId() + "] is not active.");
+            return;
+        }
         GameRpc.Request req = GameRpc.Request.newBuilder().setSessionId(sessionId).setBehavior(GameRpc.Behavior.Handle).setData(ByteString.copyFrom(data)).build();
         this.requestStream.onNext(req);
     }
@@ -78,5 +90,27 @@ public class RpcClient {
     @Override
     public int hashCode() {
         return Objects.hash(serviceId);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    private class RpcClientResponseImpl implements StreamObserver<GameRpc.Response> {
+
+        @Override
+        public void onNext(GameRpc.Response response) {
+
+        }
+
+        @Override
+        public void onError(Throwable throwable) {
+            active = false;
+        }
+
+        @Override
+        public void onCompleted() {
+            active = false;
+        }
     }
 }

@@ -22,6 +22,7 @@ public class RpcClientPool {
     private final String poolName;
     private final AtomicInteger loadBalancingCounter;
     private final List<RpcClient> rpcClients;
+    private final List<ServiceInfo> serviceInfos;
     private final ReentrantReadWriteLock readWriteLock;
     private Future<?> refreshFuture = null;
     private boolean destroy = false;
@@ -31,6 +32,7 @@ public class RpcClientPool {
         this.readWriteLock = new ReentrantReadWriteLock();
         this.loadBalancingCounter = new AtomicInteger(0);
         this.rpcClients = new ArrayList<>();
+        this.serviceInfos = new ArrayList<>();
     }
 
     public static RpcClientPool create(ServiceName serviceName, Consul consulClient, ScheduledExecutorService executorService) {
@@ -58,6 +60,8 @@ public class RpcClientPool {
                             serviceHealth.getService().getPort())).collect(Collectors.toList()));
             Set<String> tss = serviceHealths.stream().map(ServiceHealth::getService).map(Service::getId).collect(Collectors.toSet());
             removeList.addAll(rpcClients.stream().filter(client -> !tss.contains(client.getServiceId())).collect(Collectors.toList()));
+            Set<String> hasServiceSet = serviceInfos.stream().map(ServiceInfo::getServiceId).collect(Collectors.toSet());
+
         } finally {
             this.readWriteLock.readLock().unlock();
         }
@@ -84,7 +88,6 @@ public class RpcClientPool {
         }
         this.readWriteLock.writeLock().lock();
         try {
-            System.err.println("10");
             rpcClients.addAll(clients);
         } finally {
             this.readWriteLock.writeLock().unlock();
@@ -109,5 +112,29 @@ public class RpcClientPool {
         this.destroy = true;
         this.refreshFuture.cancel(false);
         this.rpcClients.stream().forEach(RpcClient::close);
+    }
+
+    private static class ServiceInfo {
+        private String serviceId;
+        private String host;
+        private int port;
+
+        public ServiceInfo(String serviceId, String host, int port) {
+            this.serviceId = serviceId;
+            this.host = host;
+            this.port = port;
+        }
+
+        public String getServiceId() {
+            return serviceId;
+        }
+
+        public String getHost() {
+            return host;
+        }
+
+        public int getPort() {
+            return port;
+        }
     }
 }
