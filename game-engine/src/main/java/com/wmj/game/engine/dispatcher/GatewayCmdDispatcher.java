@@ -3,9 +3,9 @@ package com.wmj.game.engine.dispatcher;
 import com.wmj.game.common.message.core.Cmd;
 import com.wmj.game.common.message.core.GatewayMessage;
 import com.wmj.game.common.service.ServiceName;
-import com.wmj.game.common.session.SessionKey;
 import com.wmj.game.engine.GameServer;
 import com.wmj.game.engine.manage.Session;
+import com.wmj.game.engine.manage.WebSocketSession;
 import com.wmj.game.engine.rpc.client.RpcClient;
 import com.wmj.game.engine.rpc.client.RpcClientPool;
 import org.slf4j.Logger;
@@ -38,7 +38,8 @@ public class GatewayCmdDispatcher extends CmdDispatcher {
 
     @Override
     protected void hallHandler(Session session, int cmd, byte[] data) {
-        RpcClient rpcClient = session.getAttribute(SessionKey.RPC_HALL_CLIENT_KEY, RpcClient.class);
+        WebSocketSession wsSession = WebSocketSession.class.cast(session);
+        RpcClient rpcClient = wsSession.getRpcClient(ServiceName.HALL);
         synchronized (session) {
             if (rpcClient == null) {
                 RpcClientPool clientPool = GameServer.getInstance().getRpcClientPool(ServiceName.HALL);
@@ -47,8 +48,8 @@ public class GatewayCmdDispatcher extends CmdDispatcher {
                     return;
                 }
                 rpcClient = clientPool.getRpcClient();
-                session.putAttribute(SessionKey.RPC_HALL_CLIENT_KEY, rpcClient);
-                rpcClient.addCloseHook(session.getSessionId(), () -> session.close());
+                wsSession.putRpcClient(ServiceName.HALL, rpcClient);
+                rpcClient.addCloseHook(session.getSessionId(), () -> wsSession.close());
             }
         }
         if (!rpcClient.isActive()) {

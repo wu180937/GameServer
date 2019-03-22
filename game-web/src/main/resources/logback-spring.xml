@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <springProperty scope="context" name="serverPort" source="server.port"/>
+    <!--控制台日志输出配置-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %p (%file:%line\)- %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="STDOUT_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>../logs/${serverPort}/info.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　　　　　
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+        <encoder>　　　　　　　　
+            <pattern>%d %p (%file:%line\)- %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="STDOUT_ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>../logs/${serverPort}/warn.%d{yyyy-MM-dd}.log</fileNamePattern>　　　　　　　　　　　　
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+        <encoder>　　　　　　　　
+            <pattern>%d %p (%file:%line\)- %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <!--指定日志输出等级-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <!-- <appender-ref ref="STDOUT_FILE"/> -->
+        <!-- <appender-ref ref="STDOUT_ERROR_FILE"/> -->
+    </root>
+</configuration>

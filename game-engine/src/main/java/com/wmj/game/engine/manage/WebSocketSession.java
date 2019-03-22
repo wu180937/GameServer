@@ -1,9 +1,13 @@
 package com.wmj.game.engine.manage;
 
+import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.engine.rpc.client.RpcClient;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
+import org.apache.commons.lang3.concurrent.ConcurrentException;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Author: wumj
@@ -13,6 +17,7 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 public class WebSocketSession extends AbstractSession {
     private long sessionId;
     private Channel channel;
+    private ConcurrentHashMap<ServiceName, RpcClient> rpcClientMap = new ConcurrentHashMap<>();
 
     public WebSocketSession(long sessionId, Channel channel) {
         this.sessionId = sessionId;
@@ -41,12 +46,20 @@ public class WebSocketSession extends AbstractSession {
         if (this.channel.isActive()) {
             this.channel.close();
         }
-        this.attributeMap.forEach((k, v) -> {
-            if (v instanceof RpcClient) {
-                RpcClient.class.cast(v).logout(sessionId);
-            }
-        });
+        this.rpcClientMap.values().stream().forEach(rpcClient -> rpcClient.logout(sessionId));
+        this.rpcClientMap.clear();
         super.close();
     }
 
+    public void putRpcClient(ServiceName serviceName, RpcClient rpcClient) {
+        this.rpcClientMap.put(serviceName, rpcClient);
+    }
+
+    public RpcClient getRpcClient(ServiceName serviceName) {
+        return this.rpcClientMap.get(serviceName);
+    }
+
+    public void removeRpcClient(ServiceName serviceName) {
+        this.rpcClientMap.remove(serviceName);
+    }
 }

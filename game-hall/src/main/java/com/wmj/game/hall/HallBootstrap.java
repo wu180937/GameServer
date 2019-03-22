@@ -1,5 +1,6 @@
 package com.wmj.game.hall;
 
+import com.google.common.net.HostAndPort;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.engine.GameServer;
 import com.wmj.game.engine.rpc.server.RpcServerParam;
@@ -16,7 +17,7 @@ public class HallBootstrap {
 
     public static void main(String[] args) {
         GameServer gameServer = GameServer.getInstance();
-        gameServer.start(ServiceName.HALL, "127.0.0.1", 8500);
+        gameServer.start(ServiceName.HALL, HostAndPort.fromParts("127.0.0.1", 8500));
         gameServer.startRpcServer(new RpcServerParam(ServiceName.HALL, "127.0.0.1", 11080));
         log.info("hall started.");
     }

@@ -1,6 +1,7 @@
 package com.wmj.game.gateway;
 
 
+import com.google.common.net.HostAndPort;
 import com.wmj.game.common.service.ServiceName;
 import com.wmj.game.engine.GameServer;
 import com.wmj.game.engine.rpc.server.RpcServerParam;
@@ -17,7 +18,7 @@ public class GatewayBootstrap {
 
     public static void main(String[] args) {
         GameServer gameServer = GameServer.getInstance();
-        gameServer.start(ServiceName.GATEWAY, "127.0.0.1", 8500);
+        gameServer.start(ServiceName.GATEWAY, HostAndPort.fromParts("127.0.0.1", 8500));
         gameServer.startRpcServer(new RpcServerParam(ServiceName.GATEWAY, "127.0.0.1", 10001));
         gameServer.startRpcClient(ServiceName.HALL);
         gameServer.startGatewayServer("127.0.0.1", 10000, false);

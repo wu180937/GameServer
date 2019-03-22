@@ -1,6 +1,8 @@
 package com.wmj.game.engine.rpc.server;
 
 import com.wmj.game.common.constant.ErrorCode;
+import com.wmj.game.common.util.VarintUtil;
+import com.wmj.game.engine.dispatcher.RpcServerCmdDispatcher;
 import com.wmj.game.engine.manage.RpcSessionManage;
 import com.wmj.game.engine.manage.Session;
 import com.wmj.game.engine.rpc.proto.GameRpc;
@@ -20,13 +22,15 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
     private final static Logger log = LoggerFactory.getLogger(RpcGameServiceImpl.class);
-    private String serviceName;
+    private final String serviceName;
     private final RpcSessionManage rpcSessionManage;
     private final Set<Long> sessionIdSet = new HashSet<>();
+    private final RpcServerCmdDispatcher rpcServerCmdDispatcher;
 
     public RpcGameServiceImpl(String serviceName, RpcSessionManage rpcSessionManage) {
         this.serviceName = serviceName;
         this.rpcSessionManage = rpcSessionManage;
+        this.rpcServerCmdDispatcher = new RpcServerCmdDispatcher();
     }
 
     @Override
@@ -57,7 +61,9 @@ public class RpcGameServiceImpl extends GameServiceGrpc.GameServiceImplBase {
                         if (session == null) {
                             return;
                         }
-//                        responseObserver.onNext(GameRpc.Response.newBuilder().setSessionId(sessionId).build());
+                        byte[] dataBytes = request.toByteArray();
+                        int cmd = VarintUtil.rawVarint32(dataBytes, 1);
+                        rpcServerCmdDispatcher.dispatcher(session, cmd, dataBytes);
                         break;
                     }
                     default:

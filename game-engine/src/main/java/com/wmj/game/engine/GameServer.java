@@ -27,8 +27,7 @@ public class GameServer {
     private final static ScheduledExecutorService consulHealthExecutor = Executors.newSingleThreadScheduledExecutor(new DefaultThreadFactory("consulHealthExecutor"));
     private boolean init;
     private ServiceName serviceName;
-    private String consulHost;
-    private int consulPort;
+    private HostAndPort consulHostAndPort;
     private Consul consulClient;
     private final ConcurrentHashMap<ServiceName, RpcClientPool> serviceRpcClientMap = new ConcurrentHashMap<>();
 
@@ -39,14 +38,13 @@ public class GameServer {
     private GameServer() {
     }
 
-    public synchronized void start(ServiceName serviceName, String consulHost, int consulPort) {
+    public synchronized void start(ServiceName serviceName, HostAndPort consulHostAndPort) {
         if (init) {
             throw new RuntimeException("GameServer Initialized.");
         }
         this.init = true;
+        this.consulHostAndPort = consulHostAndPort;
         this.serviceName = serviceName;
-        this.consulHost = consulHost;
-        this.consulPort = consulPort;
         this.consulClient = newConsulClient();
     }
 
@@ -83,7 +81,7 @@ public class GameServer {
     }
 
     private Consul newConsulClient() {
-        Consul client = Consul.builder().withPing(true).withHostAndPort(HostAndPort.fromParts(consulHost, consulPort)).build();
+        Consul client = Consul.builder().withPing(true).withHostAndPort(this.consulHostAndPort).build();
         return client;
     }
 
@@ -107,7 +105,7 @@ public class GameServer {
     }
 
     public RpcClientPool getRpcClientPool(ServiceName serviceName) {
-        return this.getRpcClientPool(serviceName);
+        return this.serviceRpcClientMap.get(serviceName);
     }
 
 }
