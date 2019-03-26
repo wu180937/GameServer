@@ -86,7 +86,7 @@
             <dependency>
                 <groupId>hikari-cp</groupId>
                 <artifactId>hikari-cp</artifactId>
-                <version>2.7.1</version>
+                <version>2.6.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
