@@ -88,6 +88,11 @@
                 <artifactId>hikari-cp</artifactId>
                 <version>2.6.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.56</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <!-- <build>
