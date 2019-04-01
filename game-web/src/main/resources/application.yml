@@ -5,3 +5,8 @@ spring:
     name: game-web
 server:
   port: 5088
+game:
+  login:
+    passEncryptKey: PFlrojPs6PlAXYwq
+    tokenEncryptKey: L7h0csvxhGoSeue8
+    tokenEffectiveTimeSec: 180

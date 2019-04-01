@@ -6,7 +6,8 @@ package com.wmj.game.gateway.test;
  * @Description:
  */
 public class TestHashCode {
+//    1430227
     public static void main(String[] args) {
-        System.err.println("28800019524".hashCode()%100);
+        System.err.println("22000000049".hashCode()%100);
     }
 }
