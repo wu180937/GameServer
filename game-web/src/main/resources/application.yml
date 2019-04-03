@@ -7,6 +7,5 @@ server:
   port: 5088
 game:
   login:
-    passEncryptKey: PFlrojPs6PlAXYwq
-    tokenEncryptKey: L7h0csvxhGoSeue8
+    tokenEncryptKey: OvhcPnOEgatiswqO
     tokenEffectiveTimeSec: 180
